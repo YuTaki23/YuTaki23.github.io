@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>CS61A on 演示站点</title>
-        <link>http://localhost:1313/categories/cs61a/</link>
-        <description>Recent content in CS61A on 演示站点</description>
+        <title>CS61A on YuTaki&#39;s Ideas</title>
+        <link>https://YuTaki23.github.io/categories/cs61a/</link>
+        <description>Recent content in CS61A on YuTaki&#39;s Ideas</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <copyright>Example Person</copyright>
-        <lastBuildDate>Fri, 07 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/categories/cs61a/index.xml" rel="self" type="application/rss+xml" /><item>
+        <copyright>YuTaki. All rights reserved.</copyright>
+        <lastBuildDate>Fri, 07 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://YuTaki23.github.io/categories/cs61a/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>CS61A SP24 Scheme</title>
-        <link>http://localhost:1313/p/cs61a-sp24-scheme/</link>
+        <link>https://YuTaki23.github.io/p/cs61a-sp24-scheme/</link>
         <pubDate>Fri, 07 Mar 2025 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/p/cs61a-sp24-scheme/</guid>
-        <description>&lt;img src="http://localhost:1313/p/cs61a-sp24-scheme/image1.png" alt="Featured image of post CS61A SP24 Scheme" /&gt;&lt;h2 id=&#34;写在前面&#34;&gt;写在前面
+        <guid>https://YuTaki23.github.io/p/cs61a-sp24-scheme/</guid>
+        <description>&lt;img src="https://YuTaki23.github.io/p/cs61a-sp24-scheme/image1.png" alt="Featured image of post CS61A SP24 Scheme" /&gt;&lt;h2 id=&#34;写在前面&#34;&gt;写在前面
 &lt;/h2&gt;&lt;p&gt;本项目为UC Berekly CS61A SP24的 Project4: Scheme。以下为个人对此项目的见解，如有错误或更好的解决方案，欢迎与我联系。&lt;/p&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;mailto:yutaki23@163.com&#34; &gt;点这里向我发邮件~&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;具体思路&#34;&gt;具体思路
