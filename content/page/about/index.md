@@ -15,3 +15,5 @@ menu:
 - 框架：[Hugo](https://gohugo.io/)
 - 主题：[Stack](https://themes.gohugo.io/themes/hugo-theme-stack/)
 - 域名：[GitHub Pages](https://pages.github.com/)
+
+<p align = "center"><b>为天地立心，为生民立命，为往圣继绝学，为万世开太平。</b></p>
