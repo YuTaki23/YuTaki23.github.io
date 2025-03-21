@@ -216,17 +216,27 @@ menu:
         - identifier: github
           name: GitHub
           url: https://github.com/YuTaki23
+          weight: -100
           params:
               icon: github
 
+        - identifier: Email
+          name: 邮箱
+          weight: -90
+          url: mailto:yutaki23@163.com
+          params:
+              icon: email
+
         - identifier: zhihu
           name: 知乎
+          weight: -80
           url: https://www.zhihu.com/people/yutaki-61
           params:
               icon: zhihu
 
         - identifier: bilibili
           name: 哔哩哔哩
+          weight: -70
           url: https://space.bilibili.com/45550397
           params:
               icon: bilibili

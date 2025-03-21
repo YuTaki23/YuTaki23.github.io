@@ -5,7 +5,7 @@ date: 2025-03-12
 categories:
     - 软件推荐
     - 音乐
-tag:
+tags:
     - Salt Player
 comment: true
 ---

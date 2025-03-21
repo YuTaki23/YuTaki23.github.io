@@ -6,7 +6,7 @@ image: image1.png
 categories:
     - CS61A
     - 解题思路
-tag:
+tags:
     - Python
     - 学习笔记
 comment: true

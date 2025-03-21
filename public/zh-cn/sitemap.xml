@@ -34,16 +34,38 @@
     <loc>https://YuTaki23.github.io/p/cs61b-project1b-applying-and-testing-data-structures-version-1.0/</loc>
     <lastmod>2025-03-15T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://YuTaki23.github.io/tags/java/</loc>
+    <lastmod>2025-03-15T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://YuTaki23.github.io/post/</loc>
     <lastmod>2025-03-15T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://YuTaki23.github.io/tags/</loc>
+    <lastmod>2025-03-15T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://YuTaki23.github.io/en/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://YuTaki23.github.io/tags/"
+                />
+  </url><url>
     <loc>https://YuTaki23.github.io/categories/%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/</loc>
+    <lastmod>2025-03-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://YuTaki23.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2025-03-15T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://YuTaki23.github.io/p/cs61b-sp18-project1a-data-structure/</loc>
     <lastmod>2025-03-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://YuTaki23.github.io/p/make-life-more-regular-%E5%90%AC%E6%AD%8C%E7%AF%87/</loc>
+    <lastmod>2025-03-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://YuTaki23.github.io/tags/salt-player/</loc>
     <lastmod>2025-03-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://YuTaki23.github.io/categories/%E8%BD%AF%E4%BB%B6%E6%8E%A8%E8%8D%90/</loc>
@@ -61,30 +83,19 @@
     <loc>https://YuTaki23.github.io/p/cs61a-sp24-scheme/</loc>
     <lastmod>2025-03-07T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://YuTaki23.github.io/tags/python/</loc>
+    <lastmod>2025-03-07T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://YuTaki23.github.io/archives/</loc>
     <lastmod>2019-05-28T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://YuTaki23.github.io/page/</loc>
     <lastmod>2019-05-28T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://YuTaki23.github.io/about/</loc>
+  </url><url>
     <loc>https://YuTaki23.github.io/links/</loc>
   </url><url>
     <loc>https://YuTaki23.github.io/search/</loc>
-  </url><url>
-    <loc>https://YuTaki23.github.io/tags/</loc>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://YuTaki23.github.io/en/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://YuTaki23.github.io/tags/"
-                />
-  </url><url>
-    <loc>https://YuTaki23.github.io/categories/test/</loc>
-  </url><url>
-    <loc>https://YuTaki23.github.io/%E5%85%B3%E4%BA%8E/</loc>
   </url>
 </urlset>

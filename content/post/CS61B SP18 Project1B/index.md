@@ -5,7 +5,7 @@ date: 2025-03-15
 categories:
     - CS61B
     - 解题思路
-tag:
+tags:
     - Java
     - 学习笔记
 comment: true
