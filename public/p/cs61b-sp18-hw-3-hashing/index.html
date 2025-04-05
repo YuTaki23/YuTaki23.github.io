@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="关于CS106L的第一个作业的个人解法">
-<title>CS106L Winter2025 Assignment1 SimpleEnroll</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="关于CS61B的第三个家庭作业Hashing的个人解法">
+<title>CS61B SP18 HW 3 Hashing</title>
 
-<link rel='canonical' href='https://YuTaki23.github.io/p/cs106l-winter2025-assignment1-simpleenroll/'>
+<link rel='canonical' href='https://YuTaki23.github.io/p/cs61b-sp18-hw-3-hashing/'>
 
-<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="CS106L Winter2025 Assignment1 SimpleEnroll">
-<meta property='og:description' content="关于CS106L的第一个作业的个人解法">
-<meta property='og:url' content='https://YuTaki23.github.io/p/cs106l-winter2025-assignment1-simpleenroll/'>
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="CS61B SP18 HW 3 Hashing">
+<meta property='og:description' content="关于CS61B的第三个家庭作业Hashing的个人解法">
+<meta property='og:url' content='https://YuTaki23.github.io/p/cs61b-sp18-hw-3-hashing/'>
 <meta property='og:site_name' content='YuTaki&#39;s Ideas'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='C&#43;&#43;' /><meta property='article:tag' content='学习笔记' /><meta property='article:published_time' content='2025-03-31T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-31T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="CS106L Winter2025 Assignment1 SimpleEnroll">
-<meta name="twitter:description" content="关于CS106L的第一个作业的个人解法">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Java' /><meta property='article:tag' content='学习笔记' /><meta property='article:published_time' content='2025-04-05T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-04-05T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="CS61B SP18 HW 3 Hashing">
+<meta name="twitter:description" content="关于CS61B的第三个家庭作业Hashing的个人解法">
     <link rel="shortcut icon" href="/logo.ico" />
 
     </head>
@@ -306,14 +306,16 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#写在前面">写在前面</a></li>
     <li><a href="#具体思路">具体思路</a>
       <ol>
-        <li><a href="#part-0-read-the-code-and-fill-in-the-course-struct">Part 0: Read the code and fill in the <code>Course</code> struct</a></li>
-        <li><a href="#part-1-parse_csv">Part 1: <code>parse_csv</code></a></li>
-        <li><a href="#part-2-write_courses_offered">Part 2: <code>write_courses_offered</code></a></li>
-        <li><a href="#part-3-write_courses_not_offered">Part 3: <code>write_courses_not_offered</code></a></li>
-        <li><a href="#常见问题">常见问题</a></li>
+        <li><a href="#simple-oomage">Simple Oomage</a>
+          <ol>
+            <li><a href="#equals">equals</a></li>
+            <li><a href="#a-simple-hashcode">A Simple hashCode</a></li>
+            <li><a href="#testhashcodeperfect">testHashCodePerfect</a></li>
+            <li><a href="#a-perfect-hashcode">A Perfect hashCode</a></li>
+          </ol>
+        </li>
       </ol>
     </li>
   </ol>
@@ -334,8 +336,8 @@
     
     <header class="article-category">
         
-            <a href="/categories/cs106l/" >
-                CS106L
+            <a href="/categories/cs61b/" >
+                CS61B
             </a>
         
             <a href="/categories/%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/" >
@@ -347,12 +349,12 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/cs106l-winter2025-assignment1-simpleenroll/">CS106L Winter2025 Assignment1 SimpleEnroll</a>
+            <a href="/p/cs61b-sp18-hw-3-hashing/">CS61B SP18 HW 3 Hashing</a>
         </h2>
     
         
         <h3 class="article-subtitle">
-            关于CS106L的第一个作业的个人解法
+            关于CS61B的第三个家庭作业Hashing的个人解法
         </h3>
         
     </div>
@@ -373,7 +375,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Mar 31, 2025</time>
+                <time class="article-time--published">Apr 05, 2025</time>
             </div>
         
 
@@ -388,7 +390,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 4 分钟
+                    阅读时长: 2 分钟
                 </time>
             </div>
         
@@ -403,22 +405,80 @@
     <section class="article-content">
     
     
-    <h2 id="写在前面">写在前面
-</h2><p>本文取自Stanford CS106L的第一个作业，以下为笔者对本作业的思考以及对C++的一些思考。</p>
-<p>CS106L作为C++的课程名不虚传，其特性只有自己写题时才能感知出来，一个简单的操作居然会有许多不同的方法来实现，笔者十分震惊，在这之前笔者对于C++仅是只闻其名，不闻其人。</p>
-<p>关于此题，若你有有任何问题或更好的方法，欢迎与我联系。</p>
-<p><a class="link" href="mailto:yutaki23@163.com" >点这里向我发邮件</a></p>
-<h2 id="具体思路">具体思路
-</h2><h3 id="part-0-read-the-code-and-fill-in-the-course-struct">Part 0: Read the code and fill in the <code>Course</code> struct
-</h3><p>本题一共有两个任务</p>
-<ol>
-<li>整体看一下代码</li>
-<li>补充完整结构<code>Course</code></li>
-</ol>
-<p>首先观察一下整体代码，并说一下整个作业需要我们完成什么。本作业需要我们通过一个csv文件，来看看在一个特定的学期当中，有哪些课被学生选了并允许达到开课的要求，而有哪些课是没有被选的，在这里我们创建一个结构体<code>Course</code>其中包括三个参数，<code>title</code>课程名称、<code>number_of_units</code>此课程共有几个单元以及<code>quarter</code>学期，值得注意的是，国外学期用的是季节+年份来表示。</p>
-<p>在下面有一个函数<code>parse_csv</code>即将一个csv文件转变为一个Course数组来存放。</p>
-<p>还有<code>write_courses_offered</code>和<code>write_courses_not_offered</code>，分别代表将数组中的可以开课的课程存入一个csv文件和将数组中不可以开课的课程存入另一个csv文件当中。</p>
-<p>下一部分看看结构体<code>Course</code>，观察题目给我们的csv文件可以发现，<code>title</code>和<code>quarter</code>均为字符串的形式，故它们的类型均为<code>String</code>，对于<code>number_of_units</code>笔者一开始认为其应该为<code>int</code>类型，但之后会用到一个<code>spilt</code>函数，其类型属于<code>String</code>，即将一个字符串分成好几个不同的字符串，故这里的<code>number_of_units</code>也应该为<code>String</code>类型，</p>
+    <h1 id="hw3-hashing">HW3: Hashing
+</h1><h2 id="具体思路">具体思路
+</h2><h3 id="simple-oomage">Simple Oomage
+</h3><p>首先观察一下这个类，存在三个实例变量，red、blue和green，只要这三个值在0-255之间并且是5的倍数，就称为有效。</p>
+<h4 id="equals">equals
+</h4><p>普通的<code>equals</code>只是检查目标地址是否相同，若相同则返回true，反之false，但在这里不可行。同时还应注意的是为了保证比较的两个类是完全相同的两个类，而不是子类或其他，应使用<code>getClass</code>方法来判断，观察<code>Date</code>类的<code>equals</code>方法可模仿写出代码，</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">equals</span><span class="p">(</span><span class="n">Object</span><span class="w"> </span><span class="n">o</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">o</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">this</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">o</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">o</span><span class="p">.</span><span class="na">getClass</span><span class="p">()</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">getClass</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">SimpleOomage</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">SimpleOomage</span><span class="p">)</span><span class="w"> </span><span class="n">o</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">red</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">that</span><span class="p">.</span><span class="na">red</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">green</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">that</span><span class="p">.</span><span class="na">green</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">blue</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">that</span><span class="p">.</span><span class="na">blue</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="a-simple-hashcode">A Simple hashCode
+</h4><p>此题需要我们完成一个哈希函数，作为一个好的哈希函数，应该要做到能平均的放到每一个哈希表中，不会出现一组数据只放在一个哈希表内，对于题目给我们的数可知，这三个数均为0-255之间且为5的倍数的数字，那么一组数最多只有52个数字（0-51），因此我们可以从这两个地方入手，写出</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Override</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">hashCode</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">USE_PERFECT_HASH</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">red</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">green</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">blue</span><span class="p">;</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// Write a perfect hash function for Simple Oomages.  </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">rIndex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">red</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">5</span><span class="p">;</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">gIndex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">green</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">5</span><span class="p">;</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">bIndex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">blue</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">5</span><span class="p">;</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">rIndex</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">52</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">52</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">gIndex</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">52</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">bIndex</span><span class="p">;</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="testhashcodeperfect">testHashCodePerfect
+</h4><p>本体需要我们编写一个测试，来测试目前给的哈希函数是错误的，先观察一下当前的哈希函数，这只是简单的将三个数字相加，没有做任何区分，可以想到，若把数字交换一下，这同样也会给出一样的值，但从本质上来说，它们是不同的，可以写出</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -428,180 +488,35 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Course</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">title</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">number_of_units</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">quarter</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Test</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">testHashCodePerfect</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">SimpleOomage</span><span class="w"> </span><span class="n">ooA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SimpleOomage</span><span class="p">(</span><span class="n">5</span><span class="p">,</span><span class="w"> </span><span class="n">10</span><span class="p">,</span><span class="w"> </span><span class="n">20</span><span class="p">);</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">SimpleOomage</span><span class="w"> </span><span class="n">ooA2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SimpleOomage</span><span class="p">(</span><span class="n">10</span><span class="p">,</span><span class="w"> </span><span class="n">20</span><span class="p">,</span><span class="w"> </span><span class="n">5</span><span class="p">);</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">assertNotEquals</span><span class="p">(</span><span class="n">ooA</span><span class="p">.</span><span class="na">hashCode</span><span class="p">(),</span><span class="w"> </span><span class="n">ooA2</span><span class="p">.</span><span class="na">hashCode</span><span class="p">());</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>接下来看代码中的注释，告诉我们看一下<code>main</code>函数，并告知我们这三个函数需要更改一下签名，观察可得，从始至终用的都是同一个结构体数组，而不是一直复制一个不断更改，故可以知道这里的数组应该是引用类型，即指向的是地址，改变一次，下一次也接着改变，故对于<code>parse_csv</code>函数来说需要将签名改为引用类型，而对于<code>write_courses_offered</code>函数来说，它存在特殊要求，最后是需要将参数数组在其原基础上做更改，所以也需要改为引用类型，对于<code>write_courses_not_offered</code>则没有这种要求，故不需要更改，</p>
+</div><h4 id="a-perfect-hashcode">A Perfect hashCode
+</h4><p>将<code>USE_PERFECT_HASH</code>改为<code>true</code>即可</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">write_courses_offered</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Course</span><span class="o">&gt;&amp;</span> <span class="n">all_courses</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">write_courses_not_offered</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Course</span><span class="o">&gt;</span> <span class="n">unlisted_courses</span><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="n">USE_PERFECT_HASH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="part-1-parse_csv">Part 1: <code>parse_csv</code>
-</h3><p>本题需要我们完成<code>parse_csv</code>函数，此函数主要是读取一个csv文件的内容，并将其中的内容保存在一个<code>Course</code>数组中，简单思考一下，</p>
-<ol>
-<li>应该要使用IO流的方法来读取外部文件的内容，需要注意的是如何打开、关闭一个文件</li>
-<li>每一行都对应了一个<code>Course</code>故要一行一行的读取内容，在这里应使用<code>getline()</code>函数</li>
-<li>最上面一行的内容不属于<code>Course</code>应忽略，有多种方式可以忽略，如<code>ignore</code>函数，或仅读取却不做任何操作</li>
-<li>一行内容存放了三个不同的值，应使用<code>split</code>函数（应include此文件），对于此函数，其返回的是一个字符串数组，故可以使用[]表达式来取值</li>
-<li>关于如何对一个结构体数组添加元素，有许多方法可以做到，如<code>push_back</code>函数或<code>emplace_back</code>（这也是笔者对C++很震惊的一点，一个操作居然有如此多种方法可以实现）</li>
-</ol>
-<p>故可以写出代码，</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">parse_csv</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">filename</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Course</span><span class="o">&gt;&amp;</span> <span class="n">courses</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">ifstream</span> <span class="n">inputFile</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="n">inputFile</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">inputFile</span><span class="p">.</span><span class="n">is_open</span><span class="p">())</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">line</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">getline</span><span class="p">(</span><span class="n">inputFile</span><span class="p">,</span> <span class="n">line</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">splitString</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">getline</span><span class="p">(</span><span class="n">inputFile</span><span class="p">,</span> <span class="n">line</span><span class="p">))</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="n">splitString</span> <span class="o">=</span> <span class="n">split</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="sc">&#39;,&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">      <span class="n">Course</span> <span class="n">c</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">      <span class="n">c</span><span class="p">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">splitString</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">      <span class="n">c</span><span class="p">.</span><span class="n">number_of_units</span> <span class="o">=</span> <span class="n">splitString</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">      <span class="n">c</span><span class="p">.</span><span class="n">quarter</span> <span class="o">=</span> <span class="n">splitString</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">      <span class="n">courses</span><span class="p">.</span><span class="n">push_back</span><span class="p">({</span><span class="n">c</span><span class="p">});</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="n">inputFile</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="part-2-write_courses_offered">Part 2: <code>write_courses_offered</code>
-</h3><p>本题需要将已经存在的一个<code>Course</code>数组进行筛选，选出<code>quarter</code>不为null的课程，写入一个新csv文件，并在最后将此存在的数组删除这些为null的课程，值得注意的点有，</p>
-<ol>
-<li>将数组中的内容写入文件中，应使用<code>ofstream</code>来做，记得打开文件也要关闭文件</li>
-<li>对于新csv文件的第一行会有一个特殊的内容需要单独写入</li>
-<li>需要记录下来哪些是需要删除的课程，并在最后使用题目给我们的<code>delete_elem_from_vector</code>函数来删除</li>
-</ol>
-<p>故简单写出代码，</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">write_courses_offered</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Course</span><span class="o">&gt;&amp;</span> <span class="n">all_courses</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">ofstream</span> <span class="n">outfile</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="n">outfile</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="n">COURSES_OFFERED_PATH</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">      <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Course</span><span class="o">&gt;</span> <span class="n">course_need_to_delete</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">outfile</span><span class="p">.</span><span class="n">is_open</span><span class="p">())</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">outfile</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Title,Number of Units,Quarter&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="n">Course</span> <span class="nl">c</span><span class="p">:</span> <span class="n">all_courses</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="n">c</span><span class="p">.</span><span class="n">quarter</span> <span class="o">!=</span> <span class="s">&#34;null&#34;</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">outfile</span> <span class="o">&lt;&lt;</span> <span class="n">c</span><span class="p">.</span><span class="n">title</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;,&#39;</span> <span class="o">&lt;&lt;</span> <span class="n">c</span><span class="p">.</span><span class="n">number_of_units</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;,&#39;</span> <span class="o">&lt;&lt;</span> <span class="n">c</span><span class="p">.</span><span class="n">quarter</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">        <span class="n">course_need_to_delete</span><span class="p">.</span><span class="n">push_back</span><span class="p">({</span><span class="n">c</span><span class="p">});</span>
-</span></span><span class="line"><span class="cl">      <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="n">outfile</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span> <span class="nl">c</span> <span class="p">:</span> <span class="n">course_need_to_delete</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">delete_elem_from_vector</span><span class="p">(</span><span class="n">all_courses</span><span class="p">,</span> <span class="n">c</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="part-3-write_courses_not_offered">Part 3: <code>write_courses_not_offered</code>
-</h3><p>此题需要将一个已经存在的<code>Course</code>数组进行筛选，选出<code>quarter</code>为null的课程，写入一个新csv文件，但不需要删除，故大致部分与上文无二，还少了最后一个部分，不赘述，</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">write_courses_not_offered</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Course</span><span class="o">&gt;</span> <span class="n">unlisted_courses</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="cm">/* (STUDENT TODO) Your code goes here... */</span>
-</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">ofstream</span> <span class="n">outfile</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="n">outfile</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="n">COURSES_NOT_OFFERED_PATH</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">outfile</span><span class="p">.</span><span class="n">is_open</span><span class="p">())</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">outfile</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Title,Number of Units,Quarter&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="n">Course</span> <span class="nl">c</span> <span class="p">:</span> <span class="n">unlisted_courses</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">outfile</span> <span class="o">&lt;&lt;</span> <span class="n">c</span><span class="p">.</span><span class="n">title</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;,&#39;</span> <span class="o">&lt;&lt;</span> <span class="n">c</span><span class="p">.</span><span class="n">number_of_units</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;,&#39;</span> <span class="o">&lt;&lt;</span> <span class="n">c</span><span class="p">.</span><span class="n">quarter</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="n">outfile</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="常见问题">常见问题
-</h3><ul>
-<li>不要忘了将<code>main</code>函数的注释给删掉，才能进行autograde评分。笔者在这里起码缠了半个小时（要疯了）</li>
-</ul>
-<p><img src="/p/cs106l-winter2025-assignment1-simpleenroll/image.png"
-	width="925"
-	height="291"
-	srcset="/p/cs106l-winter2025-assignment1-simpleenroll/image_hu_e7c1842c41e43dfb.png 480w, /p/cs106l-winter2025-assignment1-simpleenroll/image_hu_32d8aeed6e11fe3b.png 1024w"
+</div><p><img src="/p/cs61b-sp18-hw-3-hashing/image.png"
+	width="547"
+	height="1157"
+	srcset="/p/cs61b-sp18-hw-3-hashing/image_hu_17b0536d97e4b69a.png 480w, /p/cs61b-sp18-hw-3-hashing/image_hu_83b1fe4c46b1a161.png 1024w"
 	loading="lazy"
 	
 		alt="autograde"
 	
 	
 		class="gallery-image" 
-		data-flex-grow="317"
-		data-flex-basis="762px"
+		data-flex-grow="47"
+		data-flex-basis="113px"
 	
 ></p>
 
@@ -612,7 +527,7 @@
     
     <section class="article-tags">
         
-            <a href="/tags/c&#43;&#43;/">C&#43;&#43;</a>
+            <a href="/tags/java/">Java</a>
         
             <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
         
@@ -674,19 +589,6 @@
             
                 
 <article class="">
-    <a href="/p/cs61b-sp18-hw-3-hashing/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">CS61B SP18 HW 3 Hashing</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
     <a href="/p/cs61b-sp18-lab9-tree-maps-vs.-hash-maps/">
         
         
@@ -743,6 +645,19 @@
 
         <div class="article-details">
             <h2 class="article-title">CS61B Project1B Applying and Testing Data Structures version 1.0</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/cs61b-sp18-project1a-data-structure/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">CS61B SP18 Project1A Data Structure</h2>
         </div>
     </a>
 </article>
