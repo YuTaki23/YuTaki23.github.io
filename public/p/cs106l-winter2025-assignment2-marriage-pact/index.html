@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="关于CS106L的第一个作业的个人解法">
-<title>CS106L Winter2025 Assignment1 SimpleEnroll</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="关于CS106L的第二个作业的个人解法">
+<title>CS106L Winter2025 Assignment2 Marriage Pact</title>
 
-<link rel='canonical' href='https://YuTaki23.github.io/p/cs106l-winter2025-assignment1-simpleenroll/'>
+<link rel='canonical' href='https://YuTaki23.github.io/p/cs106l-winter2025-assignment2-marriage-pact/'>
 
-<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="CS106L Winter2025 Assignment1 SimpleEnroll">
-<meta property='og:description' content="关于CS106L的第一个作业的个人解法">
-<meta property='og:url' content='https://YuTaki23.github.io/p/cs106l-winter2025-assignment1-simpleenroll/'>
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="CS106L Winter2025 Assignment2 Marriage Pact">
+<meta property='og:description' content="关于CS106L的第二个作业的个人解法">
+<meta property='og:url' content='https://YuTaki23.github.io/p/cs106l-winter2025-assignment2-marriage-pact/'>
 <meta property='og:site_name' content='YuTaki&#39;s Ideas'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='C&#43;&#43;' /><meta property='article:tag' content='学习笔记' /><meta property='article:published_time' content='2025-03-31T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-31T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="CS106L Winter2025 Assignment1 SimpleEnroll">
-<meta name="twitter:description" content="关于CS106L的第一个作业的个人解法">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='C&#43;&#43;' /><meta property='article:tag' content='学习笔记' /><meta property='article:published_time' content='2025-04-09T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-04-09T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="CS106L Winter2025 Assignment2 Marriage Pact">
+<meta name="twitter:description" content="关于CS106L的第二个作业的个人解法">
     <link rel="shortcut icon" href="/logo.ico" />
 
     </head>
@@ -309,13 +309,13 @@
     <li><a href="#写在前面">写在前面</a></li>
     <li><a href="#具体思路">具体思路</a>
       <ol>
-        <li><a href="#part-0-read-the-code-and-fill-in-the-course-struct">Part 0: Read the code and fill in the <code>Course</code> struct</a></li>
-        <li><a href="#part-1-parse_csv">Part 1: <code>parse_csv</code></a></li>
-        <li><a href="#part-2-write_courses_offered">Part 2: <code>write_courses_offered</code></a></li>
-        <li><a href="#part-3-write_courses_not_offered">Part 3: <code>write_courses_not_offered</code></a></li>
-        <li><a href="#常见问题">常见问题</a></li>
+        <li><a href="#kyourname"><code>kYourName</code></a></li>
+        <li><a href="#get_applicants"><code>get_applicants</code></a></li>
+        <li><a href="#find_matches"><code>find_matches</code></a></li>
+        <li><a href="#get_match"><code>get_match</code></a></li>
       </ol>
     </li>
+    <li><a href="#写在后面">写在后面</a></li>
   </ol>
 </nav>
         </div>
@@ -347,12 +347,12 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/cs106l-winter2025-assignment1-simpleenroll/">CS106L Winter2025 Assignment1 SimpleEnroll</a>
+            <a href="/p/cs106l-winter2025-assignment2-marriage-pact/">CS106L Winter2025 Assignment2 Marriage Pact</a>
         </h2>
     
         
         <h3 class="article-subtitle">
-            关于CS106L的第一个作业的个人解法
+            关于CS106L的第二个作业的个人解法
         </h3>
         
     </div>
@@ -373,7 +373,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Mar 31, 2025</time>
+                <time class="article-time--published">Apr 09, 2025</time>
             </div>
         
 
@@ -388,7 +388,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 4 分钟
+                    阅读时长: 2 分钟
                 </time>
             </div>
         
@@ -404,58 +404,27 @@
     
     
     <h2 id="写在前面">写在前面
-</h2><p>本文取自Stanford CS106L的第一个作业，以下为笔者对本作业的思考以及对C++的一些思考。</p>
-<p>CS106L作为C++的课程名不虚传，其特性只有自己写题时才能感知出来，一个简单的操作居然会有许多不同的方法来实现，笔者十分震惊，在这之前笔者对于C++仅是只闻其名，不闻其人。</p>
-<p>关于此题，若你有有任何问题或更好的方法，欢迎与我联系。</p>
-<p><a class="link" href="mailto:yutaki23@163.com" >点这里向我发邮件</a></p>
+</h2><p>本作业取自Stanford CS106L Winter 2025 第2个Assignment。主要考察对读取文件内容、容器等内容的考察，总体难度不大，但是有几个坑，笔者会在下方标注<strong>坑处</strong>，如果你的测试过不去，大概率就是这里出了问题。</p>
 <h2 id="具体思路">具体思路
-</h2><h3 id="part-0-read-the-code-and-fill-in-the-course-struct">Part 0: Read the code and fill in the <code>Course</code> struct
-</h3><p>本题一共有两个任务</p>
-<ol>
-<li>整体看一下代码</li>
-<li>补充完整结构<code>Course</code></li>
-</ol>
-<p>首先观察一下整体代码，并说一下整个作业需要我们完成什么。本作业需要我们通过一个csv文件，来看看在一个特定的学期当中，有哪些课被学生选了并允许达到开课的要求，而有哪些课是没有被选的，在这里我们创建一个结构体<code>Course</code>其中包括三个参数，<code>title</code>课程名称、<code>number_of_units</code>此课程共有几个单元以及<code>quarter</code>学期，值得注意的是，国外学期用的是季节+年份来表示。</p>
-<p>在下面有一个函数<code>parse_csv</code>即将一个csv文件转变为一个Course数组来存放。</p>
-<p>还有<code>write_courses_offered</code>和<code>write_courses_not_offered</code>，分别代表将数组中的可以开课的课程存入一个csv文件和将数组中不可以开课的课程存入另一个csv文件当中。</p>
-<p>下一部分看看结构体<code>Course</code>，观察题目给我们的csv文件可以发现，<code>title</code>和<code>quarter</code>均为字符串的形式，故它们的类型均为<code>String</code>，对于<code>number_of_units</code>笔者一开始认为其应该为<code>int</code>类型，但之后会用到一个<code>spilt</code>函数，其类型属于<code>String</code>，即将一个字符串分成好几个不同的字符串，故这里的<code>number_of_units</code>也应该为<code>String</code>类型，</p>
+</h2><h3 id="kyourname"><code>kYourName</code>
+</h3><p>将上方的名字改成自己的</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Course</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">title</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">number_of_units</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">quarter</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">kYourName</span> <span class="o">=</span> <span class="s">&#34;YuTaki X&#34;</span><span class="p">;</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>接下来看代码中的注释，告诉我们看一下<code>main</code>函数，并告知我们这三个函数需要更改一下签名，观察可得，从始至终用的都是同一个结构体数组，而不是一直复制一个不断更改，故可以知道这里的数组应该是引用类型，即指向的是地址，改变一次，下一次也接着改变，故对于<code>parse_csv</code>函数来说需要将签名改为引用类型，而对于<code>write_courses_offered</code>函数来说，它存在特殊要求，最后是需要将参数数组在其原基础上做更改，所以也需要改为引用类型，对于<code>write_courses_not_offered</code>则没有这种要求，故不需要更改，</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">write_courses_offered</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Course</span><span class="o">&gt;&amp;</span> <span class="n">all_courses</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">write_courses_not_offered</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Course</span><span class="o">&gt;</span> <span class="n">unlisted_courses</span><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="part-1-parse_csv">Part 1: <code>parse_csv</code>
-</h3><p>本题需要我们完成<code>parse_csv</code>函数，此函数主要是读取一个csv文件的内容，并将其中的内容保存在一个<code>Course</code>数组中，简单思考一下，</p>
+</div><h3 id="get_applicants"><code>get_applicants</code>
+</h3><p>本题需要从一个<code>.txt</code>文件中读取其中内容，并将其中内容放到一个<code>set</code>里，具体思路即为</p>
 <ol>
-<li>应该要使用IO流的方法来读取外部文件的内容，需要注意的是如何打开、关闭一个文件</li>
-<li>每一行都对应了一个<code>Course</code>故要一行一行的读取内容，在这里应使用<code>getline()</code>函数</li>
-<li>最上面一行的内容不属于<code>Course</code>应忽略，有多种方式可以忽略，如<code>ignore</code>函数，或仅读取却不做任何操作</li>
-<li>一行内容存放了三个不同的值，应使用<code>split</code>函数（应include此文件），对于此函数，其返回的是一个字符串数组，故可以使用[]表达式来取值</li>
-<li>关于如何对一个结构体数组添加元素，有许多方法可以做到，如<code>push_back</code>函数或<code>emplace_back</code>（这也是笔者对C++很震惊的一点，一个操作居然有如此多种方法可以实现）</li>
+<li>打开文件</li>
+<li>读取每行的内容</li>
+<li>将此内容放到set中</li>
+<li>直到没有内容可读取
+可以写出</li>
 </ol>
-<p>故可以写出代码，</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -471,43 +440,45 @@
 </span><span class="lnt">11
 </span><span class="lnt">12
 </span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">parse_csv</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">filename</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Course</span><span class="o">&gt;&amp;</span> <span class="n">courses</span><span class="p">)</span> <span class="p">{</span>
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">get_applicants</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">filename</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">students</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">ifstream</span> <span class="n">inputFile</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="n">inputFile</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">inputFile</span><span class="p">.</span><span class="n">is_open</span><span class="p">())</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">line</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">getline</span><span class="p">(</span><span class="n">inputFile</span><span class="p">,</span> <span class="n">line</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">splitString</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">getline</span><span class="p">(</span><span class="n">inputFile</span><span class="p">,</span> <span class="n">line</span><span class="p">))</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="n">splitString</span> <span class="o">=</span> <span class="n">split</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="sc">&#39;,&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">      <span class="n">Course</span> <span class="n">c</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">      <span class="n">c</span><span class="p">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">splitString</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">      <span class="n">c</span><span class="p">.</span><span class="n">number_of_units</span> <span class="o">=</span> <span class="n">splitString</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">      <span class="n">c</span><span class="p">.</span><span class="n">quarter</span> <span class="o">=</span> <span class="n">splitString</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">      <span class="n">courses</span><span class="p">.</span><span class="n">push_back</span><span class="p">({</span><span class="n">c</span><span class="p">});</span>
+</span></span><span class="line"><span class="cl">      <span class="n">students</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">line</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="n">inputFile</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">students</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="part-2-write_courses_offered">Part 2: <code>write_courses_offered</code>
-</h3><p>本题需要将已经存在的一个<code>Course</code>数组进行筛选，选出<code>quarter</code>不为null的课程，写入一个新csv文件，并在最后将此存在的数组删除这些为null的课程，值得注意的点有，</p>
+</div><h3 id="find_matches"><code>find_matches</code>
+</h3><p>本体需要让我们找出与<code>name</code>有相同<strong>initials</strong>名字的人，并将其指针加入到一个queue中</p>
+<blockquote>
+<p><strong>坑点1</strong>
+什么是initials？
+比如你的名字是Zhang San，那么initials就是ZS</p></blockquote>
+<p>具体思路为</p>
 <ol>
-<li>将数组中的内容写入文件中，应使用<code>ofstream</code>来做，记得打开文件也要关闭文件</li>
-<li>对于新csv文件的第一行会有一个特殊的内容需要单独写入</li>
-<li>需要记录下来哪些是需要删除的课程，并在最后使用题目给我们的<code>delete_elem_from_vector</code>函数来删除</li>
+<li>写一个辅助函数，用于得到每个名字的initials</li>
+<li>迭代查询set里的每个元素，若有与之相同的，则将其指针加入queue中
+你需要知道的内容有</li>
 </ol>
-<p>故简单写出代码，</p>
+<ul>
+<li>如何获取一个字符串中每个单词的第一个字母</li>
+</ul>
+<blockquote>
+<p>坑点2
+在用<code>stringstream</code>时，要在前面<code>include &lt;sstream&gt;</code></p></blockquote>
+<ul>
+<li>如何迭代set</li>
+<li>如何表示一个指针</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -530,80 +501,60 @@
 </span><span class="lnt">18
 </span><span class="lnt">19
 </span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">write_courses_offered</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Course</span><span class="o">&gt;&amp;</span> <span class="n">all_courses</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">ofstream</span> <span class="n">outfile</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="n">outfile</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="n">COURSES_OFFERED_PATH</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">      <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Course</span><span class="o">&gt;</span> <span class="n">course_need_to_delete</span><span class="p">;</span>
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sstream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">helper</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">stringstream</span> <span class="n">ss</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">ss</span> <span class="o">&lt;&lt;</span> <span class="n">name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">first</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">last</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">ss</span> <span class="o">&gt;&gt;</span> <span class="n">first</span> <span class="o">&gt;&gt;</span> <span class="n">last</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">res</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">res</span> <span class="o">+=</span> <span class="n">first</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">  <span class="n">res</span> <span class="o">+=</span> <span class="n">last</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">outfile</span><span class="p">.</span><span class="n">is_open</span><span class="p">())</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">outfile</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Title,Number of Units,Quarter&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="n">Course</span> <span class="nl">c</span><span class="p">:</span> <span class="n">all_courses</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="n">c</span><span class="p">.</span><span class="n">quarter</span> <span class="o">!=</span> <span class="s">&#34;null&#34;</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">outfile</span> <span class="o">&lt;&lt;</span> <span class="n">c</span><span class="p">.</span><span class="n">title</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;,&#39;</span> <span class="o">&lt;&lt;</span> <span class="n">c</span><span class="p">.</span><span class="n">number_of_units</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;,&#39;</span> <span class="o">&lt;&lt;</span> <span class="n">c</span><span class="p">.</span><span class="n">quarter</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">        <span class="n">course_need_to_delete</span><span class="p">.</span><span class="n">push_back</span><span class="p">({</span><span class="n">c</span><span class="p">});</span>
-</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">queue</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">*&gt;</span> <span class="n">find_matches</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">name</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;&amp;</span> <span class="n">students</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">queue</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">*&gt;</span> <span class="n">res</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="nl">student</span> <span class="p">:</span> <span class="n">students</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">helper</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">==</span> <span class="n">helper</span><span class="p">(</span><span class="n">student</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">res</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="o">&amp;</span><span class="n">student</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="n">outfile</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span> <span class="nl">c</span> <span class="p">:</span> <span class="n">course_need_to_delete</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">delete_elem_from_vector</span><span class="p">(</span><span class="n">all_courses</span><span class="p">,</span> <span class="n">c</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="part-3-write_courses_not_offered">Part 3: <code>write_courses_not_offered</code>
-</h3><p>此题需要将一个已经存在的<code>Course</code>数组进行筛选，选出<code>quarter</code>为null的课程，写入一个新csv文件，但不需要删除，故大致部分与上文无二，还少了最后一个部分，不赘述，</p>
+</div><h3 id="get_match"><code>get_match</code>
+</h3><p>选择你自己喜欢的方法来从queue中再进一步得到一个特殊的名字（我的名字已经够特殊的了，就不再写了，其实是懒）</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">write_courses_not_offered</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Course</span><span class="o">&gt;</span> <span class="n">unlisted_courses</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="cm">/* (STUDENT TODO) Your code goes here... */</span>
-</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">ofstream</span> <span class="n">outfile</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="n">outfile</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="n">COURSES_NOT_OFFERED_PATH</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">outfile</span><span class="p">.</span><span class="n">is_open</span><span class="p">())</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">outfile</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Title,Number of Units,Quarter&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="n">Course</span> <span class="nl">c</span> <span class="p">:</span> <span class="n">unlisted_courses</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">outfile</span> <span class="o">&lt;&lt;</span> <span class="n">c</span><span class="p">.</span><span class="n">title</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;,&#39;</span> <span class="o">&lt;&lt;</span> <span class="n">c</span><span class="p">.</span><span class="n">number_of_units</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;,&#39;</span> <span class="o">&lt;&lt;</span> <span class="n">c</span><span class="p">.</span><span class="n">quarter</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">get_match</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">queue</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">*&gt;&amp;</span> <span class="n">matches</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">matches</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">*</span><span class="n">matches</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="s">&#34;NO MATCHES FOUND.&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="n">outfile</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="常见问题">常见问题
-</h3><ul>
-<li>不要忘了将<code>main</code>函数的注释给删掉，才能进行autograde评分。笔者在这里起码缠了半个小时（要疯了）</li>
-</ul>
-<p><img src="/p/cs106l-winter2025-assignment1-simpleenroll/image.png"
-	width="925"
-	height="291"
-	srcset="/p/cs106l-winter2025-assignment1-simpleenroll/image_hu_e7c1842c41e43dfb.png 480w, /p/cs106l-winter2025-assignment1-simpleenroll/image_hu_32d8aeed6e11fe3b.png 1024w"
-	loading="lazy"
-	
-		alt="autograde"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="317"
-		data-flex-basis="762px"
-	
-></p>
+</div><h2 id="写在后面">写在后面
+</h2><p>总体不难，都是些小问题容易恼火
+<a class="link" href="https://github.com/YuTaki23/CS106L-Winter-2025/tree/main/assign2"  target="_blank" rel="noopener"
+    >GitHub地址</a></p>
 
 </section>
 
@@ -674,12 +625,12 @@
             
                 
 <article class="">
-    <a href="/p/cs106l-winter2025-assignment2-marriage-pact/">
+    <a href="/p/cs106l-winter2025-assignment1-simpleenroll/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">CS106L Winter2025 Assignment2 Marriage Pact</h2>
+            <h2 class="article-title">CS106L Winter2025 Assignment1 SimpleEnroll</h2>
         </div>
     </a>
 </article>
