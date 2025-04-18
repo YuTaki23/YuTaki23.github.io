@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="关于CS106L的第三个作业的个人解法">
-<title>CS106L Winter2025 Assignment3 Make a Class</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="关于CS106L的第五个作业的个人解法">
+<title>CS106L Winter2025 Assignment5 Treebook</title>
 
-<link rel='canonical' href='https://YuTaki23.github.io/p/cs106l-winter2025-assignment3-make-a-class/'>
+<link rel='canonical' href='https://YuTaki23.github.io/p/cs106l-winter2025-assignment5-treebook/'>
 
-<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="CS106L Winter2025 Assignment3 Make a Class">
-<meta property='og:description' content="关于CS106L的第三个作业的个人解法">
-<meta property='og:url' content='https://YuTaki23.github.io/p/cs106l-winter2025-assignment3-make-a-class/'>
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="CS106L Winter2025 Assignment5 Treebook">
+<meta property='og:description' content="关于CS106L的第五个作业的个人解法">
+<meta property='og:url' content='https://YuTaki23.github.io/p/cs106l-winter2025-assignment5-treebook/'>
 <meta property='og:site_name' content='YuTaki&#39;s Ideas'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='C&#43;&#43;' /><meta property='article:tag' content='学习笔记' /><meta property='article:published_time' content='2025-04-11T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-04-11T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="CS106L Winter2025 Assignment3 Make a Class">
-<meta name="twitter:description" content="关于CS106L的第三个作业的个人解法">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='C&#43;&#43;' /><meta property='article:tag' content='学习笔记' /><meta property='article:published_time' content='2025-04-18T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-04-18T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="CS106L Winter2025 Assignment5 Treebook">
+<meta name="twitter:description" content="关于CS106L的第五个作业的个人解法">
     <link rel="shortcut icon" href="/logo.ico" />
 
     </head>
@@ -306,8 +306,14 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#遇到的问题">遇到的问题</a></li>
-    <li><a href="#具体思路">具体思路</a></li>
+    <li><a href="#写在前面">写在前面</a></li>
+    <li><a href="#具体思路">具体思路</a>
+      <ol>
+        <li><a href="#viewing-profiles">Viewing Profiles</a></li>
+        <li><a href="#unfriendly-behaviour">Unfriendly Behaviour</a></li>
+        <li><a href="#always-be-friending">Always Be Friending</a></li>
+      </ol>
+    </li>
   </ol>
 </nav>
         </div>
@@ -339,12 +345,12 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/cs106l-winter2025-assignment3-make-a-class/">CS106L Winter2025 Assignment3 Make a Class</a>
+            <a href="/p/cs106l-winter2025-assignment5-treebook/">CS106L Winter2025 Assignment5 Treebook</a>
         </h2>
     
         
         <h3 class="article-subtitle">
-            关于CS106L的第三个作业的个人解法
+            关于CS106L的第五个作业的个人解法
         </h3>
         
     </div>
@@ -365,7 +371,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Apr 11, 2025</time>
+                <time class="article-time--published">Apr 18, 2025</time>
             </div>
         
 
@@ -380,7 +386,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 1 分钟
+                    阅读时长: 3 分钟
                 </time>
             </div>
         
@@ -395,13 +401,17 @@
     <section class="article-content">
     
     
-    <h2 id="遇到的问题">遇到的问题
-</h2><p>最后的编译过不去，不知道为什么卡在
-<code>Installing CastXML</code>就不动了
-：（</p>
+    <h2 id="写在前面">写在前面
+</h2><p>本文取自Stanford CS106L Winter2025 Assignment5: Treebook 本作业主要需要我们在其他人完成了一个类的情况下，将此类变得更加适用、更加好用，主要包括运算符重载、special member function等方面，总的来说不算难（比上次的好多了）</p>
 <h2 id="具体思路">具体思路
-</h2><p>自由发挥创造一个类，没什么好解释的，创造性很强，我没有更好的想法，就用了上课用的<code>StanfordID</code>类来做
-<code>class.h</code></p>
+</h2><h3 id="viewing-profiles">Viewing Profiles
+</h3><p>目前，我们拥有一个User类，其中值得注意的是<code>_friends</code>这个field，它简单来说是一个vector，但更底层，是使用指针来实现的。
+此题需要我们重载<code>&lt;&lt;</code>这个操作符，使得其打印时更符合我们人类的直觉
+关于如何重载此操作符，如果没有思路，可以先看看这篇文章<a class="link" href="https://learn.microsoft.com/zh-cn/cpp/standard-library/overloading-the-output-operator-for-your-own-classes?view=msvc-170"  target="_blank" rel="noopener"
+    >为自己的类重载 <code>&lt;&lt;</code> 运算符</a>
+<code>User(name=Alice, friends=[Bob, Charlie])</code>，可以看出，除了简单的必须存在的字符串以外，我们还需要打印自己的<code>name</code>，friends的<code>name</code>，
+自己的<code>name</code>很简单，类中已经给出方法<code>get_name()</code>
+friends的<code>name</code>，就需要思考了，首先<code>friends</code>在private里，这意味着我们不能简单访问它们，而是使用<strong>friend function</strong>，其次还应明白如何访问一个指针元素，最后还要注意当我们到最后一个friend时，要改变打印的内容，因此可以写出代码</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -417,150 +427,205 @@
 </span><span class="lnt">11
 </span><span class="lnt">12
 </span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sstream&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">StanfordID</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">private</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">name</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">sunet</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">idNumber</span><span class="p">;</span>
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">os</span><span class="p">,</span> <span class="k">const</span> <span class="n">User</span><span class="o">&amp;</span> <span class="n">us</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;User(name=&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">us</span><span class="p">.</span><span class="n">get_name</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;, friends=[&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">getInitialName</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">name</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    
-</span></span><span class="line"><span class="cl">    <span class="k">public</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">        <span class="n">StanfordID</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">name</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">sunet</span><span class="p">,</span> <span class="kt">int</span> <span class="n">idNumber</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="n">StanfordID</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">getName</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">        <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">getSunet</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">        <span class="k">const</span> <span class="kt">int</span> <span class="nf">getIdNumber</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="kt">void</span> <span class="nf">setName</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">name</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p><code>class.cpp</code></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;class.h&#34;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="n">StanfordID</span><span class="o">::</span><span class="n">StanfordID</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">name</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">sunet</span><span class="p">,</span> <span class="kt">int</span> <span class="n">idNumber</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="o">-&gt;</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="o">-&gt;</span><span class="n">sunet</span> <span class="o">=</span> <span class="n">sunet</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">idNumber</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="o">-&gt;</span><span class="n">idNumber</span> <span class="o">=</span> <span class="n">idNumber</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">us</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="n">us</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="n">us</span><span class="p">.</span><span class="n">_friends</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="n">us</span><span class="p">.</span><span class="n">_friends</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;, &#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">StanfordID</span><span class="o">::</span><span class="n">getInitialName</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">name</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">stringstream</span> <span class="n">ss</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">ss</span> <span class="o">&lt;&lt;</span> <span class="n">name</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">first</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">last</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">ss</span> <span class="o">&gt;&gt;</span> <span class="n">first</span> <span class="o">&gt;&gt;</span> <span class="n">last</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">res</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">res</span> <span class="o">+=</span> <span class="n">first</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">    <span class="n">res</span> <span class="o">+=</span> <span class="n">last</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">StanfordID</span><span class="o">::</span><span class="n">StanfordID</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="o">-&gt;</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#34;YuTaki X&#34;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="o">-&gt;</span><span class="n">sunet</span> <span class="o">=</span> <span class="s">&#34;172@60&#34;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="o">-&gt;</span><span class="n">idNumber</span> <span class="o">=</span> <span class="mi">190</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">StanfordID</span><span class="o">::</span><span class="n">getName</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">StanfordID</span><span class="o">::</span><span class="n">getSunet</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">sunet</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">int</span> <span class="n">StanfordID</span><span class="o">::</span><span class="n">getIdNumber</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">idNumber</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">StanfordID</span><span class="o">::</span><span class="n">setName</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">name</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="o">-&gt;</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;])&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">os</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><code>sandbox.cpp</code></p>
+</div><h3 id="unfriendly-behaviour">Unfriendly Behaviour
+</h3><p>此题需要我们实现<strong>Special Member Functions</strong>，具体为</p>
+<ul>
+<li>Destructor
+一般来说析构函数是不需要自己显式声明的，但若遇见了与<strong>内存</strong>相关的内容，就需要我们显式声明了，在此处，<code>_friends</code>就使用了内存，在全部完成后，需要释放内存</li>
+</ul>
 <div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">  <span class="o">~</span><span class="n">User</span><span class="p">();</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">User</span><span class="o">::~</span><span class="n">User</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">delete</span><span class="p">[]</span> <span class="n">_friends</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>Copy Constructor
+复制一个已存在的对象，将其声明为新的对象，值得注意的是，需要手动分配内存以保证<code>_friends</code>的正确性，在此处，笔者使用的是教授教的C++11的新方法，</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">  <span class="n">User</span><span class="p">(</span><span class="k">const</span> <span class="n">User</span><span class="o">&amp;</span> <span class="n">user</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;class.h&#34;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">void</span> <span class="nf">sandbox</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="n">StanfordID</span> <span class="n">id</span><span class="p">(</span><span class="s">&#34;Yammy Xi&#34;</span><span class="p">,</span> <span class="s">&#34;183@80&#34;</span><span class="p">,</span> <span class="mi">187</span><span class="p">);</span>
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">User</span><span class="o">::</span><span class="n">User</span><span class="p">(</span><span class="k">const</span> <span class="n">User</span><span class="o">&amp;</span> <span class="n">user</span><span class="p">)</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">_name</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="n">_name</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="n">_size</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="n">_size</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="n">_capacity</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="n">_capacity</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="n">_friends</span><span class="p">(</span><span class="k">new</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">[</span><span class="n">user</span><span class="p">.</span><span class="n">_capacity</span><span class="p">])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">user</span><span class="p">.</span><span class="n">_size</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">_friends</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">user</span><span class="p">.</span><span class="n">_friends</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>Copy Assignment
+以上课时的内容为基准，举一反三既可</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">  <span class="n">User</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">User</span><span class="o">&amp;</span> <span class="n">user</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">User</span><span class="o">&amp;</span> <span class="n">User</span><span class="o">::</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">User</span><span class="o">&amp;</span> <span class="n">user</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="k">this</span> <span class="o">==</span> <span class="o">&amp;</span><span class="n">user</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">delete</span><span class="p">[]</span> <span class="n">_friends</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">_name</span> <span class="o">=</span> <span class="n">user</span><span class="p">.</span><span class="n">_name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">_size</span> <span class="o">=</span> <span class="n">user</span><span class="p">.</span><span class="n">_size</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">_capacity</span> <span class="o">=</span> <span class="n">user</span><span class="p">.</span><span class="n">_capacity</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">_friends</span> <span class="o">=</span> <span class="k">new</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">[</span><span class="n">user</span><span class="p">.</span><span class="n">_capacity</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">user</span><span class="p">.</span><span class="n">_size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_friends</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">user</span><span class="p">.</span><span class="n">_friends</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
+</div><ul>
+<li>Move Constructor &amp; Move Assignment
+此处要用到的内容为移动语义的知识，为了防止被移动，我们要显示删除这两个SMF，简单声明即可</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">  <span class="n">User</span><span class="p">(</span><span class="n">User</span><span class="o">&amp;&amp;</span> <span class="n">user</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">User</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">User</span><span class="o">&amp;&amp;</span> <span class="n">user</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
 </div>
+</div><h3 id="always-be-friending">Always Be Friending
+</h3><p>此处需要我们重载两个操作符，以使得其更符合此类的操作</p>
+<ul>
+<li><code>operator+=</code>
+将一个用户添加到另一个用户上以成为其朋友，值得注意的是，<strong>这是相互的，一个人对另一个人敞开心扉后，另一个人也应如此。</strong>
+最后还应按照题目要求返回<code>*this</code></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">  <span class="n">User</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">+=</span><span class="p">(</span><span class="n">User</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">User</span><span class="o">&amp;</span> <span class="n">User</span><span class="o">::</span><span class="k">operator</span><span class="o">+=</span><span class="p">(</span><span class="n">User</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="o">-&gt;</span><span class="n">add_friend</span><span class="p">(</span><span class="n">rhs</span><span class="p">.</span><span class="n">get_name</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">  <span class="n">rhs</span><span class="p">.</span><span class="n">add_friend</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">get_name</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>operator&lt;</code>
+简单判断第一个字符的先后即可</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">  <span class="kt">bool</span> <span class="k">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="k">const</span> <span class="n">User</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">bool</span> <span class="n">User</span><span class="o">::</span><span class="k">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="k">const</span> <span class="n">User</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">get_name</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">rhs</span><span class="p">.</span><span class="n">get_name</span><span class="p">()[</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><a class="link" href="https://github.com/YuTaki23/CS106L-Winter-2025/tree/main/assign5"  target="_blank" rel="noopener"
+    >GitHub地址</a></p>
+
 </section>
 
 
@@ -630,12 +695,12 @@
             
                 
 <article class="">
-    <a href="/p/cs106l-winter2025-assignment5-treebook/">
+    <a href="/p/cs106l-winter2025-assignment4-ispell/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">CS106L Winter2025 Assignment5 Treebook</h2>
+            <h2 class="article-title">CS106L Winter2025 Assignment4 Ispell</h2>
         </div>
     </a>
 </article>
@@ -643,12 +708,12 @@
             
                 
 <article class="">
-    <a href="/p/cs106l-winter2025-assignment4-ispell/">
+    <a href="/p/cs106l-winter2025-assignment3-make-a-class/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">CS106L Winter2025 Assignment4 Ispell</h2>
+            <h2 class="article-title">CS106L Winter2025 Assignment3 Make a Class</h2>
         </div>
     </a>
 </article>
