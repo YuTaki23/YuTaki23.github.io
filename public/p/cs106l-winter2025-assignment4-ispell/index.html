@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="关于CS106L的第二个作业的个人解法">
-<title>CS106L Winter2025 Assignment2 Marriage Pact</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="关于CS106L的第四个作业的个人解法">
+<title>CS106L Winter2025 Assignment4 Ispell</title>
 
-<link rel='canonical' href='https://YuTaki23.github.io/p/cs106l-winter2025-assignment2-marriage-pact/'>
+<link rel='canonical' href='https://YuTaki23.github.io/p/cs106l-winter2025-assignment4-ispell/'>
 
-<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="CS106L Winter2025 Assignment2 Marriage Pact">
-<meta property='og:description' content="关于CS106L的第二个作业的个人解法">
-<meta property='og:url' content='https://YuTaki23.github.io/p/cs106l-winter2025-assignment2-marriage-pact/'>
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="CS106L Winter2025 Assignment4 Ispell">
+<meta property='og:description' content="关于CS106L的第四个作业的个人解法">
+<meta property='og:url' content='https://YuTaki23.github.io/p/cs106l-winter2025-assignment4-ispell/'>
 <meta property='og:site_name' content='YuTaki&#39;s Ideas'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='C&#43;&#43;' /><meta property='article:tag' content='学习笔记' /><meta property='article:published_time' content='2025-04-09T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-04-09T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="CS106L Winter2025 Assignment2 Marriage Pact">
-<meta name="twitter:description" content="关于CS106L的第二个作业的个人解法">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='C&#43;&#43;' /><meta property='article:tag' content='学习笔记' /><meta property='article:published_time' content='2025-04-18T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-04-18T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="CS106L Winter2025 Assignment4 Ispell">
+<meta name="twitter:description" content="关于CS106L的第四个作业的个人解法">
     <link rel="shortcut icon" href="/logo.ico" />
 
     </head>
@@ -309,13 +309,21 @@
     <li><a href="#写在前面">写在前面</a></li>
     <li><a href="#具体思路">具体思路</a>
       <ol>
-        <li><a href="#kyourname"><code>kYourName</code></a></li>
-        <li><a href="#get_applicants"><code>get_applicants</code></a></li>
-        <li><a href="#find_matches"><code>find_matches</code></a></li>
-        <li><a href="#get_match"><code>get_match</code></a></li>
+        <li><a href="#题目大意">题目大意</a></li>
+        <li><a href="#tokenize"><code>tokenize</code></a>
+          <ol>
+            <li><a href="#题目大意-1">题目大意</a></li>
+            <li><a href="#代码实现">代码实现</a></li>
+          </ol>
+        </li>
+        <li><a href="#spellcheck"><code>spellcheck</code></a>
+          <ol>
+            <li><a href="#题目大意-2">题目大意</a></li>
+            <li><a href="#代码实现-1">代码实现</a></li>
+          </ol>
+        </li>
       </ol>
     </li>
-    <li><a href="#写在后面">写在后面</a></li>
   </ol>
 </nav>
         </div>
@@ -347,12 +355,12 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/cs106l-winter2025-assignment2-marriage-pact/">CS106L Winter2025 Assignment2 Marriage Pact</a>
+            <a href="/p/cs106l-winter2025-assignment4-ispell/">CS106L Winter2025 Assignment4 Ispell</a>
         </h2>
     
         
         <h3 class="article-subtitle">
-            关于CS106L的第二个作业的个人解法
+            关于CS106L的第四个作业的个人解法
         </h3>
         
     </div>
@@ -373,7 +381,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Apr 09, 2025</time>
+                <time class="article-time--published">Apr 18, 2025</time>
             </div>
         
 
@@ -388,7 +396,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 2 分钟
+                    阅读时长: 4 分钟
                 </time>
             </div>
         
@@ -404,133 +412,48 @@
     
     
     <h2 id="写在前面">写在前面
-</h2><p>本作业取自Stanford CS106L Winter 2025 第2个Assignment。主要考察对读取文件内容、容器等内容的考察，总体难度不大，但是有几个坑，笔者会在下方标注<strong>坑处</strong>，如果你的测试过不去，大概率就是这里出了问题。</p>
+</h2><p>本文取自Stanford CS106L Winter2025 Assignment4: Ispell 本任务主要要求我们实现一个拼写检查程序，即若我们给出的单词有误会给出较为合理的建议。主要用到的知识有容器、Lambda函数等内容。</p>
 <h2 id="具体思路">具体思路
-</h2><h3 id="kyourname"><code>kYourName</code>
-</h3><p>将上方的名字改成自己的</p>
+</h2><h3 id="题目大意">题目大意
+</h3><ol>
+<li>将所有常见的英语单词字典添加到内存中，若在字典中找不到该单词则认为拼写错误</li>
+<li>若可以通过添加、删除、替换、交换等操作且此操作只需要进行一次的，则将其添加到建议列表中</li>
+<li>不能使用for/while循环</li>
+</ol>
+<h3 id="tokenize"><code>tokenize</code>
+</h3><h4 id="题目大意-1">题目大意
+</h4><p>此方法最终会实现一个将String分割成一系列Token，对于一个Token来说其作为一个结构体，包括<code>struct Token { std::string content; size_t src_offset; };</code>
+假设现有一字符串<code>history will absolve me</code>，我们可以将其以空格为边界分成四个Token</p>
+<ul>
+<li><code>{ content: &quot;history&quot;, src_offset: 0 }</code></li>
+<li><code>{ content: &quot;will&quot;, src_offset: 8 }</code></li>
+<li><code>{ content: &quot;absolve&quot;, src_offset: 13 }</code></li>
+<li><code>{ content: &quot;me&quot;, src_offset: 21 }</code>
+可以看出，<code>content</code>会以第一个字母为起点，空格为终点存储一个单词，<code>sec_offset</code>为此第一个字母在整个字符串中的索引，其中需要包括空格。</li>
+</ul>
+<h4 id="代码实现">代码实现
+</h4><h5 id="identify-all-iterators-to-space-characters"><strong>Identify all iterators to space characters</strong>
+</h5><p>此任务需要我们找出所有空白字符并将其作为迭代器保存到vector中，题目给了我们函数<code>find_all(Iterator begin, Iterator end, UnaryPred pred)</code>，它可以返回此迭代器中所有符合<code>pred</code>条件的所有迭代器并将其保存在vector中，那么我们就需要用参数<code>source</code>来作为迭代器，String类提供了作为迭代器的接口，<code>begin</code> <code>end</code>，条件题目也给了我们判断此字符是否为空格的函数<code>isspace</code>，可以写出代码，</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">kYourName</span> <span class="o">=</span> <span class="s">&#34;YuTaki X&#34;</span><span class="p">;</span>
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">  <span class="k">auto</span> <span class="n">space</span> <span class="o">=</span> <span class="n">find_all</span><span class="p">(</span><span class="n">source</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">source</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">isspace</span><span class="p">);</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="get_applicants"><code>get_applicants</code>
-</h3><p>本题需要从一个<code>.txt</code>文件中读取其中内容，并将其中内容放到一个<code>set</code>里，具体思路即为</p>
-<ol>
-<li>打开文件</li>
-<li>读取每行的内容</li>
-<li>将此内容放到set中</li>
-<li>直到没有内容可读取
-可以写出</li>
-</ol>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">get_applicants</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">filename</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">students</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">ifstream</span> <span class="n">inputFile</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="n">inputFile</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">inputFile</span><span class="p">.</span><span class="n">is_open</span><span class="p">())</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">line</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">getline</span><span class="p">(</span><span class="n">inputFile</span><span class="p">,</span> <span class="n">line</span><span class="p">))</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="n">students</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">line</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="n">inputFile</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">students</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="find_matches"><code>find_matches</code>
-</h3><p>本体需要让我们找出与<code>name</code>有相同<strong>initials</strong>名字的人，并将其指针加入到一个queue中</p>
-<blockquote>
-<p><strong>坑点1</strong>
-什么是initials？
-比如你的名字是Zhang San，那么initials就是ZS</p></blockquote>
-<p>具体思路为</p>
-<ol>
-<li>写一个辅助函数，用于得到每个名字的initials</li>
-<li>迭代查询set里的每个元素，若有与之相同的，则将其指针加入queue中
-你需要知道的内容有</li>
-</ol>
+</div><h5 id="generate-tokens-between-consecutive-space-characters"><strong>Generate tokens between consecutive space characters</strong>
+</h5><p>目前，我们已经拥有了所有空字符的迭代器，现在需要我们将两个空字符迭代器之间的内容保存为一个Token，Token的迭代器会自动处理两边的空白，只需要提供起始迭代器与终止迭代器即可，此时就可以找到一个Token，但其中不止存在一个Token，所以我们还需要遍历整个字符串，但题目要求不能使用for/while循环，所以使用另一个函数
+<code>std::transform(InputIt1 first1, InputIt1 last1, InputIt2 first2, OutputIt d_first, BinaryOp binary_op)</code>
+此函数参数可以分为三个部分</p>
 <ul>
-<li>如何获取一个字符串中每个单词的第一个字母</li>
+<li><code>first1</code> <code>last1</code> <code>first2</code>，对于此输入范围，函数要求给定两个相等的输入范围，一个从<code>first1</code>开始到<code>last1</code>结束，另一个从<code>first2</code>开始</li>
+<li><code>d_first</code> 将结果存储到<code>d_first</code>中，大小与上文输入范围相同</li>
+<li><code>binary_op</code> 应用于两个部分
+对于<code>binary_op</code>应创建一个lambda函数，其中参数为两个迭代器，和字符串，以创建Token，其中source应按引用传递，
+对于<code>d_first</code>应先创建一个集合以存储我们创建的Token，再使用<code>std::inserter</code>函数以保存创建的Token
+对于输入范围，应选择两个连续的迭代器，以遍历所有迭代器</li>
 </ul>
-<blockquote>
-<p>坑点2
-在用<code>stringstream</code>时，要在前面<code>include &lt;sstream&gt;</code></p></blockquote>
-<ul>
-<li>如何迭代set</li>
-<li>如何表示一个指针</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sstream&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">helper</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">name</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">stringstream</span> <span class="n">ss</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="n">ss</span> <span class="o">&lt;&lt;</span> <span class="n">name</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">first</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">last</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="n">ss</span> <span class="o">&gt;&gt;</span> <span class="n">first</span> <span class="o">&gt;&gt;</span> <span class="n">last</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">res</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="n">res</span> <span class="o">+=</span> <span class="n">first</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">  <span class="n">res</span> <span class="o">+=</span> <span class="n">last</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">queue</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">*&gt;</span> <span class="n">find_matches</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">name</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;&amp;</span> <span class="n">students</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">queue</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">*&gt;</span> <span class="n">res</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="nl">student</span> <span class="p">:</span> <span class="n">students</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">helper</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">==</span> <span class="n">helper</span><span class="p">(</span><span class="n">student</span><span class="p">))</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="n">res</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="o">&amp;</span><span class="n">student</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="get_match"><code>get_match</code>
-</h3><p>选择你自己喜欢的方法来从queue中再进一步得到一个特殊的名字（我的名字已经够特殊的了，就不再写了，其实是懒）</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -542,18 +465,124 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">get_match</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">queue</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">*&gt;&amp;</span> <span class="n">matches</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">matches</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">*</span><span class="n">matches</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="s">&#34;NO MATCHES FOUND.&#34;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="n">Token</span><span class="o">&gt;</span> <span class="n">tokens</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">transform</span><span class="p">(</span><span class="n">space</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">space</span><span class="p">.</span><span class="n">end</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">space</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                  <span class="n">std</span><span class="o">::</span><span class="n">inserter</span><span class="p">(</span><span class="n">tokens</span><span class="p">,</span> <span class="n">tokens</span><span class="p">.</span><span class="n">end</span><span class="p">()),</span>
+</span></span><span class="line"><span class="cl">                  <span class="p">[</span><span class="o">&amp;</span><span class="n">source</span><span class="p">]</span> <span class="p">(</span><span class="k">auto</span> <span class="n">it1</span><span class="p">,</span> <span class="k">auto</span> <span class="n">it2</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">return</span> <span class="n">Token</span> <span class="p">{</span> <span class="n">source</span><span class="p">,</span> <span class="n">it1</span><span class="p">,</span> <span class="n">it2</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">                  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">);</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="写在后面">写在后面
-</h2><p>总体不难，都是些小问题容易恼火
-<a class="link" href="https://github.com/YuTaki23/CS106L-Winter-2025/tree/main/assign2"  target="_blank" rel="noopener"
+</div><h5 id="get-rid-of-empty-tokens"><strong>Get rid of empty tokens</strong>
+</h5><p>此时我们所创建的Token可能有一些Token是含有空白字符的，我们要将其删掉，
+<code>std::erase_if(std::set&lt;Key, Compare, Alloc&gt;&amp; c, Pred pred)</code>
+对于c，传递我们上文给的集合tokens即可
+对于pred，创建一个lambda函数，以判断token是否为空</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">erase_if</span><span class="p">(</span><span class="n">tokens</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                <span class="p">[]</span> <span class="p">(</span><span class="n">Token</span> <span class="n">token</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                  <span class="k">return</span> <span class="n">token</span><span class="p">.</span><span class="n">content</span><span class="p">.</span><span class="n">empty</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="spellcheck"><code>spellcheck</code>
+</h3><h4 id="题目大意-2">题目大意
+</h4><p>该方法接受<code>tokenize</code>所得到的token来进一步给出建议，并返回一个<code>Mispelling</code>，其中包括一个错误的Token，和一系列建议的单词
+大致过程为</p>
+<ol>
+<li>跳过正确拼写的单词</li>
+<li>查找距离正确单词仅“一步之遥”的单词</li>
+<li>删除没有建议的错误拼写单词</li>
+</ol>
+<h4 id="代码实现-1">代码实现
+</h4><h5 id="skip-words-that-are-already-correctly-spelled"><strong>Skip words that are already correctly spelled.</strong>
+</h5><p>若一个单词已经存在在了dictionary中了，我们就认为它是正确的，思路很简单，在此处需要学习的是<code>std::ranges::views::filter</code>，在此笔者使用题目给的较为简洁的方法，即使用namespace来简洁化</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="n">rv</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">views</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">auto</span> <span class="n">view</span> <span class="o">=</span> <span class="n">source</span> <span class="o">|</span> <span class="n">rv</span><span class="o">::</span><span class="n">filter</span><span class="p">(</span><span class="cm">/* A lambda function predicate */</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>我们的任务只需要填写这个lambda函数，此函数参数为Token，lambda参数为dictionary，此处的dictionary应按引用传递，来判断此Token是否在dictionary中</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">auto</span> <span class="n">view</span> <span class="o">=</span> <span class="n">source</span> <span class="o">|</span> <span class="n">rv</span><span class="o">::</span><span class="n">filter</span><span class="p">([</span><span class="o">&amp;</span><span class="n">dictionary</span><span class="p">]</span> <span class="p">(</span><span class="n">Token</span> <span class="n">token</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">!</span><span class="n">dictionary</span><span class="p">.</span><span class="n">contains</span><span class="p">(</span><span class="n">token</span><span class="p">.</span><span class="n">content</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h5 id="find-one-edit-away-words-in-the-dictionary-using-damerau-levenshtein"><strong>Find one-edit-away words in the dictionary using Damerau-Levenshtein</strong>
+</h5><p>根据题目提示，此时我们应该与上题相结合</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="n">rv</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">views</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">auto</span> <span class="n">view</span> <span class="o">=</span> <span class="n">source</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="n">rv</span><span class="o">::</span><span class="n">filter</span><span class="p">(</span><span class="cm">/* A lambda function predicate */</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="n">rv</span><span class="o">::</span><span class="n">transform</span><span class="p">(</span><span class="cm">/* A lambda function taking a Token -&gt; Mispelling */</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>此lambda函数应接受一个Token，返回距离为一的所有单词，求距离是否为一，使用题目给的函数<code>levenshtein</code>来判断即可
+最后需要返回一个Mispelling对象</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">	<span class="o">|</span> <span class="n">rv</span><span class="o">::</span><span class="n">transform</span><span class="p">([</span><span class="n">dictionary</span><span class="p">]</span> <span class="p">(</span><span class="n">Token</span> <span class="n">token</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Mispelling</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">view</span> <span class="o">=</span> <span class="n">dictionary</span> <span class="o">|</span> <span class="n">rv</span><span class="o">::</span><span class="n">filter</span><span class="p">([</span><span class="n">token</span><span class="p">]</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">str</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="nf">levenshtein</span><span class="p">(</span><span class="n">token</span><span class="p">.</span><span class="n">content</span><span class="p">,</span> <span class="n">str</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">suggestions</span><span class="p">(</span><span class="n">view</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">view</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">Mispelling</span> <span class="p">{</span> <span class="n">token</span><span class="p">,</span> <span class="n">suggestions</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h5 id="drop-misspellings-with-no-suggestions"><strong>Drop misspellings with no suggestions.</strong>
+</h5><p>在此我们需要找到没有办法进行任何修改使其变为正常单词的单词了，故此处还需要使用<code>filter</code>来判断是否符合此情况，过滤完成后返回最新的Mispelling</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"> <span class="o">|</span> <span class="n">rv</span><span class="o">::</span><span class="n">filter</span><span class="p">([]</span> <span class="p">(</span><span class="n">Mispelling</span> <span class="n">miss</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="o">!</span><span class="n">miss</span><span class="p">.</span><span class="n">suggestions</span><span class="p">.</span><span class="n">empty</span><span class="p">();});</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="n">Mispelling</span><span class="o">&gt;</span> <span class="p">(</span><span class="n">view</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">view</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><a class="link" href="https://github.com/YuTaki23/CS106L-Winter-2025/tree/main/assign4"  target="_blank" rel="noopener"
     >GitHub地址</a></p>
 
 </section>
@@ -625,12 +654,12 @@
             
                 
 <article class="">
-    <a href="/p/cs106l-winter2025-assignment4-ispell/">
+    <a href="/p/cs106l-winter2025-assignment3-make-a-class/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">CS106L Winter2025 Assignment4 Ispell</h2>
+            <h2 class="article-title">CS106L Winter2025 Assignment3 Make a Class</h2>
         </div>
     </a>
 </article>
@@ -638,12 +667,12 @@
             
                 
 <article class="">
-    <a href="/p/cs106l-winter2025-assignment3-make-a-class/">
+    <a href="/p/cs106l-winter2025-assignment2-marriage-pact/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">CS106L Winter2025 Assignment3 Make a Class</h2>
+            <h2 class="article-title">CS106L Winter2025 Assignment2 Marriage Pact</h2>
         </div>
     </a>
 </article>
