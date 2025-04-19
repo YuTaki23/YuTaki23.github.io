@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Python on YuTaki&#39;s Ideas</title>
-        <link>https://YuTaki23.github.io/tags/python/</link>
+        <link>http://localhost:1313/tags/python/</link>
         <description>Recent content in Python on YuTaki&#39;s Ideas</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>YuTaki. All rights reserved.</copyright>
-        <lastBuildDate>Fri, 07 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://YuTaki23.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 07 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/python/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>CS61A SP24 Scheme</title>
-        <link>https://YuTaki23.github.io/p/cs61a-sp24-scheme/</link>
+        <link>http://localhost:1313/p/cs61a-sp24-scheme/</link>
         <pubDate>Fri, 07 Mar 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://YuTaki23.github.io/p/cs61a-sp24-scheme/</guid>
-        <description>&lt;img src="https://YuTaki23.github.io/p/cs61a-sp24-scheme/image1.png" alt="Featured image of post CS61A SP24 Scheme" /&gt;&lt;h2 id=&#34;写在前面&#34;&gt;写在前面
+        <guid>http://localhost:1313/p/cs61a-sp24-scheme/</guid>
+        <description>&lt;img src="http://localhost:1313/p/cs61a-sp24-scheme/image1.png" alt="Featured image of post CS61A SP24 Scheme" /&gt;&lt;h2 id=&#34;写在前面&#34;&gt;写在前面
 &lt;/h2&gt;&lt;p&gt;本项目为UC Berekly CS61A SP24的 Project4: Scheme。以下为个人对此项目的见解，如有错误或更好的解决方案，欢迎与我联系。&lt;/p&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;mailto:yutaki23@163.com&#34; &gt;点这里向我发邮件~&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;具体思路&#34;&gt;具体思路
