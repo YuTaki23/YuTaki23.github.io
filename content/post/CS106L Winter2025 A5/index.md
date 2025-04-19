@@ -1,7 +1,7 @@
 ---
 title: CS106L Winter2025 Assignment5 Treebook
 description: 关于CS106L的第五个作业的个人解法
-date: 2025-04-18
+date: 2025-04-17
 categories:
     - CS106L
     - 解题思路

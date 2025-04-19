@@ -1,7 +1,7 @@
 ---
 title: CS106L Winter2025 Assignment4 Ispell
 description: 关于CS106L的第四个作业的个人解法
-date: 2025-04-17
+date: 2025-04-16
 categories:
     - CS106L
     - 解题思路

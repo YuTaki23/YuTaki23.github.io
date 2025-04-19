@@ -1,7 +1,7 @@
 ---
-title: CS106L Winter2025 Assignment5 Explore Courses
+title: CS106L Winter2025 Assignment6 Explore Courses
 description: 关于CS106L的第六个作业的个人解法
-date: 2025-04-19
+date: 2025-04-18
 categories:
     - CS106L
     - 解题思路

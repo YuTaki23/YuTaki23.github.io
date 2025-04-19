@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="关于CS106L的第四个作业的个人解法">
-<title>CS106L Winter2025 Assignment4 Ispell</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="关于CS106L的第七个作业的个人解法">
+<title>CS106L Winter2025 Assignment7 Unique Pointer</title>
 
-<link rel='canonical' href='https://YuTaki23.github.io/p/cs106l-winter2025-assignment4-ispell/'>
+<link rel='canonical' href='https://YuTaki23.github.io/p/cs106l-winter2025-assignment7-unique-pointer/'>
 
-<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="CS106L Winter2025 Assignment4 Ispell">
-<meta property='og:description' content="关于CS106L的第四个作业的个人解法">
-<meta property='og:url' content='https://YuTaki23.github.io/p/cs106l-winter2025-assignment4-ispell/'>
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="CS106L Winter2025 Assignment7 Unique Pointer">
+<meta property='og:description' content="关于CS106L的第七个作业的个人解法">
+<meta property='og:url' content='https://YuTaki23.github.io/p/cs106l-winter2025-assignment7-unique-pointer/'>
 <meta property='og:site_name' content='YuTaki&#39;s Ideas'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='C&#43;&#43;' /><meta property='article:tag' content='学习笔记' /><meta property='article:published_time' content='2025-04-16T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-04-16T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="CS106L Winter2025 Assignment4 Ispell">
-<meta name="twitter:description" content="关于CS106L的第四个作业的个人解法">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='C&#43;&#43;' /><meta property='article:tag' content='学习笔记' /><meta property='article:published_time' content='2025-04-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-04-19T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="CS106L Winter2025 Assignment7 Unique Pointer">
+<meta name="twitter:description" content="关于CS106L的第七个作业的个人解法">
     <link rel="shortcut icon" href="/logo.ico" />
 
     </head>
@@ -307,23 +307,18 @@
             <nav id="TableOfContents">
   <ol>
     <li><a href="#写在前面">写在前面</a></li>
-    <li><a href="#具体思路">具体思路</a>
+    <li><a href="#具体实现">具体实现</a>
       <ol>
-        <li><a href="#题目大意">题目大意</a></li>
-        <li><a href="#tokenize"><code>tokenize</code></a>
+        <li><a href="#implementing-unique_ptr">Implementing <code>unique_ptr</code></a>
           <ol>
-            <li><a href="#题目大意-1">题目大意</a></li>
-            <li><a href="#代码实现">代码实现</a></li>
+            <li><a href="#implementing-unique_ptr-functionality">Implementing <code>unique_ptr</code> functionality</a></li>
+            <li><a href="#implementing-raii">Implementing RAII</a></li>
           </ol>
         </li>
-        <li><a href="#spellcheck"><code>spellcheck</code></a>
-          <ol>
-            <li><a href="#题目大意-2">题目大意</a></li>
-            <li><a href="#代码实现-1">代码实现</a></li>
-          </ol>
-        </li>
+        <li><a href="#using-unique_ptr">Using <code>unique_ptr</code></a></li>
       </ol>
     </li>
+    <li><a href="#写在后面">写在后面</a></li>
   </ol>
 </nav>
         </div>
@@ -355,12 +350,12 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/cs106l-winter2025-assignment4-ispell/">CS106L Winter2025 Assignment4 Ispell</a>
+            <a href="/p/cs106l-winter2025-assignment7-unique-pointer/">CS106L Winter2025 Assignment7 Unique Pointer</a>
         </h2>
     
         
         <h3 class="article-subtitle">
-            关于CS106L的第四个作业的个人解法
+            关于CS106L的第七个作业的个人解法
         </h3>
         
     </div>
@@ -381,7 +376,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Apr 16, 2025</time>
+                <time class="article-time--published">Apr 19, 2025</time>
             </div>
         
 
@@ -396,7 +391,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 4 分钟
+                    阅读时长: 3 分钟
                 </time>
             </div>
         
@@ -412,48 +407,203 @@
     
     
     <h2 id="写在前面">写在前面
-</h2><p>本文取自Stanford CS106L Winter2025 Assignment4: Ispell 本任务主要要求我们实现一个拼写检查程序，即若我们给出的单词有误会给出较为合理的建议。主要用到的知识有容器、Lambda函数等内容。</p>
-<h2 id="具体思路">具体思路
-</h2><h3 id="题目大意">题目大意
-</h3><ol>
-<li>将所有常见的英语单词字典添加到内存中，若在字典中找不到该单词则认为拼写错误</li>
-<li>若可以通过添加、删除、替换、交换等操作且此操作只需要进行一次的，则将其添加到建议列表中</li>
-<li>不能使用for/while循环</li>
-</ol>
-<h3 id="tokenize"><code>tokenize</code>
-</h3><h4 id="题目大意-1">题目大意
-</h4><p>此方法最终会实现一个将String分割成一系列Token，对于一个Token来说其作为一个结构体，包括<code>struct Token { std::string content; size_t src_offset; };</code>
-假设现有一字符串<code>history will absolve me</code>，我们可以将其以空格为边界分成四个Token</p>
+</h2><p>本文取自Stanford CS106L Winter2025 Assignment7: Unique Pointer</p>
+<p>主要内容为运用模板、运算符重载、移动语义和智能指针。</p>
+<p>本任务让我们自己写一个<code>unique_pointer</code>来实现链表的操作，感觉把后半部分的课程都串起来了，对Modern C++有了个更深的了解。</p>
+<h2 id="具体实现">具体实现
+</h2><h3 id="implementing-unique_ptr">Implementing <code>unique_ptr</code>
+</h3><p>本任务需要我们完成自己的<code>unique_ptr</code>，首先回忆一下唯一指针的内容。</p>
+<p>唯一指针只能指向一个内容，无法让其他指针复制其内容，无法通过值传递，当变量超出范围时会调用delete，但在此题中无需担心delete。</p>
+<h4 id="implementing-unique_ptr-functionality">Implementing <code>unique_ptr</code> functionality
+</h4><p>此处需要我们完成几个特定的SMF</p>
 <ul>
-<li><code>{ content: &quot;history&quot;, src_offset: 0 }</code></li>
-<li><code>{ content: &quot;will&quot;, src_offset: 8 }</code></li>
-<li><code>{ content: &quot;absolve&quot;, src_offset: 13 }</code></li>
-<li><code>{ content: &quot;me&quot;, src_offset: 21 }</code>
-可以看出，<code>content</code>会以第一个字母为起点，空格为终点存储一个单词，<code>sec_offset</code>为此第一个字母在整个字符串中的索引，其中需要包括空格。</li>
+<li><code>private</code></li>
 </ul>
-<h4 id="代码实现">代码实现
-</h4><h5 id="identify-all-iterators-to-space-characters"><strong>Identify all iterators to space characters</strong>
-</h5><p>此任务需要我们找出所有空白字符并将其作为迭代器保存到vector中，题目给了我们函数<code>find_all(Iterator begin, Iterator end, UnaryPred pred)</code>，它可以返回此迭代器中所有符合<code>pred</code>条件的所有迭代器并将其保存在vector中，那么我们就需要用参数<code>source</code>来作为迭代器，String类提供了作为迭代器的接口，<code>begin</code> <code>end</code>，条件题目也给了我们判断此字符是否为空格的函数<code>isspace</code>，可以写出代码，</p>
+<p>这里需要我们在私有处完成内容，对于一个指针来说，它一定会存在的内容是指向一个内容的指针</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>  
+</span></span><span class="line"><span class="cl">  <span class="n">T</span><span class="o">*</span> <span class="n">ptr</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>unique_ptr(T* ptr)</code></li>
+</ul>
+<p>此处完成一个构造函数，给出的参数为一个指针，让我们的唯一指针指向这个地方即可</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">  <span class="n">unique_ptr</span><span class="p">(</span><span class="n">T</span><span class="o">*</span> <span class="n">ptr</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="o">-&gt;</span><span class="n">ptr</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>unique_ptr(std::nullptr_t)</code></li>
+</ul>
+<p>此处完成一个指向<code>NULL</code>的构造函数，让唯一指针指向<code>NULL</code>即可</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">  <span class="n">unique_ptr</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">nullptr_t</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="o">-&gt;</span><span class="n">ptr</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>T&amp; operator*()</code></li>
+</ul>
+<p>此处需要重载<code>*</code>操作符，对于一个指针来说，<code>*</code>是解引用，返回的是指针指向的值，不是地址，所以不能使用<code>&amp;</code>取地址符，简单的返回指针即可</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">  <span class="n">T</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">*</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">ptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>const T&amp; operator*() const</code></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">  <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">*</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">ptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>const T* operator-&gt;() const</code></li>
+</ul>
+<p>此处需要返回唯一指针指向的内容</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">  <span class="n">T</span><span class="o">*</span> <span class="k">operator</span><span class="o">-&gt;</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">ptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>const T* operator-&gt;() const</code></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">  <span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="k">operator</span><span class="o">-&gt;</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">ptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>operator bool() const</code></li>
+</ul>
+<p>注释告诉我们若唯一指针为非NULL则返回true，反之相反</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">  <span class="k">operator</span> <span class="nf">bool</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">ptr</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="implementing-raii">Implementing RAII
+</h4><p>此任务要求我们实现一些列SMF，以防止唯一指针不指向唯一的内容，同时保证不会进行复制等耗费内存的操作</p>
+<ul>
+<li><code>~unique_ptr()</code></li>
+</ul>
+<p>析构函数，释放指针的内存，简单删除即可</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">  <span class="o">~</span><span class="n">unique_ptr</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">delete</span> <span class="n">ptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>unique_ptr(const unique_ptr&amp; other)</code></li>
+</ul>
+<p>因为这是唯一指针，所以不能被其他指针复制，在此应该删除</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">  <span class="k">auto</span> <span class="n">space</span> <span class="o">=</span> <span class="n">find_all</span><span class="p">(</span><span class="n">source</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">source</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">isspace</span><span class="p">);</span>
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">  <span class="n">unique_ptr</span><span class="p">(</span><span class="k">const</span> <span class="n">unique_ptr</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h5 id="generate-tokens-between-consecutive-space-characters"><strong>Generate tokens between consecutive space characters</strong>
-</h5><p>目前，我们已经拥有了所有空字符的迭代器，现在需要我们将两个空字符迭代器之间的内容保存为一个Token，Token的迭代器会自动处理两边的空白，只需要提供起始迭代器与终止迭代器即可，此时就可以找到一个Token，但其中不止存在一个Token，所以我们还需要遍历整个字符串，但题目要求不能使用for/while循环，所以使用另一个函数
-<code>std::transform(InputIt1 first1, InputIt1 last1, InputIt2 first2, OutputIt d_first, BinaryOp binary_op)</code>
-此函数参数可以分为三个部分</p>
-<ul>
-<li><code>first1</code> <code>last1</code> <code>first2</code>，对于此输入范围，函数要求给定两个相等的输入范围，一个从<code>first1</code>开始到<code>last1</code>结束，另一个从<code>first2</code>开始</li>
-<li><code>d_first</code> 将结果存储到<code>d_first</code>中，大小与上文输入范围相同</li>
-<li><code>binary_op</code> 应用于两个部分
-对于<code>binary_op</code>应创建一个lambda函数，其中参数为两个迭代器，和字符串，以创建Token，其中source应按引用传递，
-对于<code>d_first</code>应先创建一个集合以存储我们创建的Token，再使用<code>std::inserter</code>函数以保存创建的Token
-对于输入范围，应选择两个连续的迭代器，以遍历所有迭代器</li>
+</div><ul>
+<li><code>unique_ptr&amp; operator=(const unique_ptr&amp; other)</code></li>
 </ul>
+<p>应删除，理由同上</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">  <span class="n">unique_ptr</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">unique_ptr</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>unique_ptr(unique_ptr&amp;&amp; other)</code></li>
+</ul>
+<p>此处需要我们将<code>other</code>的指针移动到本指针上，同时因为这是唯一指针，不能存在两个指向相同地方的指针，给<code>other</code>的指针应指向<code>NULL</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">  <span class="n">unique_ptr</span><span class="p">(</span><span class="n">unique_ptr</span><span class="o">&amp;&amp;</span> <span class="n">other</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="o">-&gt;</span><span class="n">ptr</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">ptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">other</span><span class="p">.</span><span class="n">ptr</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>unique_ptr&amp; operator=(unique_ptr&amp;&amp; other)</code></li>
+</ul>
+<p>对<code>=</code>操作符重载，也就是将<code>this</code>赋值给<code>other</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -463,91 +613,24 @@
 </span><span class="lnt">5
 </span><span class="lnt">6
 </span><span class="lnt">7
+</span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="n">Token</span><span class="o">&gt;</span> <span class="n">tokens</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">transform</span><span class="p">(</span><span class="n">space</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">space</span><span class="p">.</span><span class="n">end</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">space</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">                  <span class="n">std</span><span class="o">::</span><span class="n">inserter</span><span class="p">(</span><span class="n">tokens</span><span class="p">,</span> <span class="n">tokens</span><span class="p">.</span><span class="n">end</span><span class="p">()),</span>
-</span></span><span class="line"><span class="cl">                  <span class="p">[</span><span class="o">&amp;</span><span class="n">source</span><span class="p">]</span> <span class="p">(</span><span class="k">auto</span> <span class="n">it1</span><span class="p">,</span> <span class="k">auto</span> <span class="n">it2</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">                    <span class="k">return</span> <span class="n">Token</span> <span class="p">{</span> <span class="n">source</span><span class="p">,</span> <span class="n">it1</span><span class="p">,</span> <span class="n">it2</span><span class="p">};</span>
-</span></span><span class="line"><span class="cl">                  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="p">);</span>
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">  <span class="n">unique_ptr</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">unique_ptr</span><span class="o">&amp;&amp;</span> <span class="n">other</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="k">this</span> <span class="o">!=</span> <span class="o">&amp;</span><span class="n">other</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">delete</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">ptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">this</span><span class="o">-&gt;</span><span class="n">ptr</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">ptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="n">other</span><span class="p">.</span><span class="n">ptr</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h5 id="get-rid-of-empty-tokens"><strong>Get rid of empty tokens</strong>
-</h5><p>此时我们所创建的Token可能有一些Token是含有空白字符的，我们要将其删掉，
-<code>std::erase_if(std::set&lt;Key, Compare, Alloc&gt;&amp; c, Pred pred)</code>
-对于c，传递我们上文给的集合tokens即可
-对于pred，创建一个lambda函数，以判断token是否为空</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">erase_if</span><span class="p">(</span><span class="n">tokens</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">                <span class="p">[]</span> <span class="p">(</span><span class="n">Token</span> <span class="n">token</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">                  <span class="k">return</span> <span class="n">token</span><span class="p">.</span><span class="n">content</span><span class="p">.</span><span class="n">empty</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">                <span class="p">}</span>
-</span></span><span class="line"><span class="cl">                <span class="p">);</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="spellcheck"><code>spellcheck</code>
-</h3><h4 id="题目大意-2">题目大意
-</h4><p>该方法接受<code>tokenize</code>所得到的token来进一步给出建议，并返回一个<code>Mispelling</code>，其中包括一个错误的Token，和一系列建议的单词
-大致过程为</p>
-<ol>
-<li>跳过正确拼写的单词</li>
-<li>查找距离正确单词仅“一步之遥”的单词</li>
-<li>删除没有建议的错误拼写单词</li>
-</ol>
-<h4 id="代码实现-1">代码实现
-</h4><h5 id="skip-words-that-are-already-correctly-spelled"><strong>Skip words that are already correctly spelled.</strong>
-</h5><p>若一个单词已经存在在了dictionary中了，我们就认为它是正确的，思路很简单，在此处需要学习的是<code>std::ranges::views::filter</code>，在此笔者使用题目给的较为简洁的方法，即使用namespace来简洁化</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="n">rv</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">views</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">auto</span> <span class="n">view</span> <span class="o">=</span> <span class="n">source</span> <span class="o">|</span> <span class="n">rv</span><span class="o">::</span><span class="n">filter</span><span class="p">(</span><span class="cm">/* A lambda function predicate */</span><span class="p">);</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>我们的任务只需要填写这个lambda函数，此函数参数为Token，lambda参数为dictionary，此处的dictionary应按引用传递，来判断此Token是否在dictionary中</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">auto</span> <span class="n">view</span> <span class="o">=</span> <span class="n">source</span> <span class="o">|</span> <span class="n">rv</span><span class="o">::</span><span class="n">filter</span><span class="p">([</span><span class="o">&amp;</span><span class="n">dictionary</span><span class="p">]</span> <span class="p">(</span><span class="n">Token</span> <span class="n">token</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">!</span><span class="n">dictionary</span><span class="p">.</span><span class="n">contains</span><span class="p">(</span><span class="n">token</span><span class="p">.</span><span class="n">content</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="p">});</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h5 id="find-one-edit-away-words-in-the-dictionary-using-damerau-levenshtein"><strong>Find one-edit-away words in the dictionary using Damerau-Levenshtein</strong>
-</h5><p>根据题目提示，此时我们应该与上题相结合</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="n">rv</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">views</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">auto</span> <span class="n">view</span> <span class="o">=</span> <span class="n">source</span> 
-</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="n">rv</span><span class="o">::</span><span class="n">filter</span><span class="p">(</span><span class="cm">/* A lambda function predicate */</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="n">rv</span><span class="o">::</span><span class="n">transform</span><span class="p">(</span><span class="cm">/* A lambda function taking a Token -&gt; Mispelling */</span><span class="p">);</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>此lambda函数应接受一个Token，返回距离为一的所有单词，求距离是否为一，使用题目给的函数<code>levenshtein</code>来判断即可
-最后需要返回一个Mispelling对象</p>
+</div><h3 id="using-unique_ptr">Using <code>unique_ptr</code>
+</h3><p>此部分需要我们使用刚才创建的唯一指针实现链表的操作，底层内容可以看一下README，在此不赘述</p>
+<p>整体实现的算法题目也已经告诉我们了，一步一步跟着来即可，</p>
+<p>值得注意的是，重新赋值时不能简单使用<code>=</code>来操作，而应该使用移动语义，</p>
+<p>取vector的内容时，不能简单使用<code>[]</code>来操作，而应该使用唯一指针的操作</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -557,34 +640,29 @@
 </span><span class="lnt">5
 </span><span class="lnt">6
 </span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl">	<span class="o">|</span> <span class="n">rv</span><span class="o">::</span><span class="n">transform</span><span class="p">([</span><span class="n">dictionary</span><span class="p">]</span> <span class="p">(</span><span class="n">Token</span> <span class="n">token</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Mispelling</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">view</span> <span class="o">=</span> <span class="n">dictionary</span> <span class="o">|</span> <span class="n">rv</span><span class="o">::</span><span class="n">filter</span><span class="p">([</span><span class="n">token</span><span class="p">]</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">str</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="nf">levenshtein</span><span class="p">(</span><span class="n">token</span><span class="p">.</span><span class="n">content</span><span class="p">,</span> <span class="n">str</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">});</span>
-</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">suggestions</span><span class="p">(</span><span class="n">view</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">view</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">Mispelling</span> <span class="p">{</span> <span class="n">token</span><span class="p">,</span> <span class="n">suggestions</span> <span class="p">};</span>
-</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span> <span class="n">cs106l</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">ListNode</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span> <span class="n">create_list</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span> <span class="n">values</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">cs106l</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">ListNode</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span> <span class="n">head</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">values</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="o">--</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cs106l</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">ListNode</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span> <span class="n">node</span> <span class="o">=</span> <span class="n">cs106l</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">ListNode</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span> <span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">node</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">head</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">head</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">node</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">head</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h5 id="drop-misspellings-with-no-suggestions"><strong>Drop misspellings with no suggestions.</strong>
-</h5><p>在此我们需要找到没有办法进行任何修改使其变为正常单词的单词了，故此处还需要使用<code>filter</code>来判断是否符合此情况，过滤完成后返回最新的Mispelling</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"> <span class="o">|</span> <span class="n">rv</span><span class="o">::</span><span class="n">filter</span><span class="p">([]</span> <span class="p">(</span><span class="n">Mispelling</span> <span class="n">miss</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="o">!</span><span class="n">miss</span><span class="p">.</span><span class="n">suggestions</span><span class="p">.</span><span class="n">empty</span><span class="p">();});</span>
-</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="n">Mispelling</span><span class="o">&gt;</span> <span class="p">(</span><span class="n">view</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">view</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
-</span></span><span class="line"><span class="cl">  <span class="p">};</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p><a class="link" href="https://github.com/YuTaki23/CS106L-Winter-2025/tree/main/assign4"  target="_blank" rel="noopener"
+</div><p><a class="link" href="https://github.com/YuTaki23/CS106L-Winter-2025/tree/main/assign7"  target="_blank" rel="noopener"
     >GitHub地址</a></p>
-
+<h2 id="写在后面">写在后面
+</h2><p>CS106L到此结束，简单了解了C++的特性，为下一门课CS144做准备。</p>
+<p>这是笔者第一个把所有内容都写下来的一门课，虽一笔一划写下，但仍有许多不精之处，若您有更好的建议，请提出。</p>
+<p>谢谢！</p>
+<p align = "right"> YuTaki </p>
+<p align = "right"> 2025年4月19日，博学楼</p>
 </section>
 
 
@@ -654,19 +732,6 @@
             
                 
 <article class="">
-    <a href="/p/cs106l-winter2025-assignment7-unique-pointer/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">CS106L Winter2025 Assignment7 Unique Pointer</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
     <a href="/p/cs106l-winter2025-assignment6-explore-courses/">
         
         
@@ -686,6 +751,19 @@
 
         <div class="article-details">
             <h2 class="article-title">CS106L Winter2025 Assignment5 Treebook</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/cs106l-winter2025-assignment4-ispell/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">CS106L Winter2025 Assignment4 Ispell</h2>
         </div>
     </a>
 </article>
