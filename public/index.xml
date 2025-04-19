@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>YuTaki&#39;s Ideas</title>
-        <link>http://localhost:1313/</link>
+        <link>https://YuTaki23.github.io/</link>
         <description>Recent content on YuTaki&#39;s Ideas</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>YuTaki. All rights reserved.</copyright>
-        <lastBuildDate>Sat, 19 Apr 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 19 Apr 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://YuTaki23.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>CS106L Winter2025 Assignment7 Unique Pointer</title>
-        <link>http://localhost:1313/p/cs106l-winter2025-assignment7-unique-pointer/</link>
+        <link>https://YuTaki23.github.io/p/cs106l-winter2025-assignment7-unique-pointer/</link>
         <pubDate>Sat, 19 Apr 2025 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/p/cs106l-winter2025-assignment7-unique-pointer/</guid>
+        <guid>https://YuTaki23.github.io/p/cs106l-winter2025-assignment7-unique-pointer/</guid>
         <description>&lt;h2 id=&#34;写在前面&#34;&gt;写在前面
 &lt;/h2&gt;&lt;p&gt;本文取自Stanford CS106L Winter2025 Assignment7: Unique Pointer&lt;/p&gt;
 &lt;p&gt;主要内容为运用模板、运算符重载、移动语义和智能指针。&lt;/p&gt;
@@ -273,10 +273,10 @@
         </item>
         <item>
         <title>CS106L Winter2025 Assignment6 Explore Courses</title>
-        <link>http://localhost:1313/p/cs106l-winter2025-assignment6-explore-courses/</link>
+        <link>https://YuTaki23.github.io/p/cs106l-winter2025-assignment6-explore-courses/</link>
         <pubDate>Fri, 18 Apr 2025 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/p/cs106l-winter2025-assignment6-explore-courses/</guid>
+        <guid>https://YuTaki23.github.io/p/cs106l-winter2025-assignment6-explore-courses/</guid>
         <description>&lt;h2 id=&#34;写在前面&#34;&gt;写在前面
 &lt;/h2&gt;&lt;p&gt;本文取自Stanford CS106L Assignment6: Explore Courses&lt;/p&gt;
 &lt;p&gt;本作业主要让我们使用&lt;code&gt;std::optional&lt;/code&gt;这个模板来完善寻找Course这个方法，主要训练了我们对此模板的理解，总的来说，题目把大部分的提示都给我们了&lt;/p&gt;
@@ -377,10 +377,10 @@
         </item>
         <item>
         <title>CS106L Winter2025 Assignment5 Treebook</title>
-        <link>http://localhost:1313/p/cs106l-winter2025-assignment5-treebook/</link>
+        <link>https://YuTaki23.github.io/p/cs106l-winter2025-assignment5-treebook/</link>
         <pubDate>Thu, 17 Apr 2025 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/p/cs106l-winter2025-assignment5-treebook/</guid>
+        <guid>https://YuTaki23.github.io/p/cs106l-winter2025-assignment5-treebook/</guid>
         <description>&lt;h2 id=&#34;写在前面&#34;&gt;写在前面
 &lt;/h2&gt;&lt;p&gt;本文取自Stanford CS106L Winter2025 Assignment5: Treebook 本作业主要需要我们在其他人完成了一个类的情况下，将此类变得更加适用、更加好用，主要包括运算符重载、special member function等方面，总的来说不算难（比上次的好多了）&lt;/p&gt;
 &lt;h2 id=&#34;具体思路&#34;&gt;具体思路
@@ -609,10 +609,10 @@ friends的&lt;code&gt;name&lt;/code&gt;，就需要思考了，首先&lt;code&gt
         </item>
         <item>
         <title>CS106L Winter2025 Assignment4 Ispell</title>
-        <link>http://localhost:1313/p/cs106l-winter2025-assignment4-ispell/</link>
+        <link>https://YuTaki23.github.io/p/cs106l-winter2025-assignment4-ispell/</link>
         <pubDate>Wed, 16 Apr 2025 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/p/cs106l-winter2025-assignment4-ispell/</guid>
+        <guid>https://YuTaki23.github.io/p/cs106l-winter2025-assignment4-ispell/</guid>
         <description>&lt;h2 id=&#34;写在前面&#34;&gt;写在前面
 &lt;/h2&gt;&lt;p&gt;本文取自Stanford CS106L Winter2025 Assignment4: Ispell 本任务主要要求我们实现一个拼写检查程序，即若我们给出的单词有误会给出较为合理的建议。主要用到的知识有容器、Lambda函数等内容。&lt;/p&gt;
 &lt;h2 id=&#34;具体思路&#34;&gt;具体思路
@@ -790,10 +790,10 @@ friends的&lt;code&gt;name&lt;/code&gt;，就需要思考了，首先&lt;code&gt
         </item>
         <item>
         <title>CS106L Winter2025 Assignment3 Make a Class</title>
-        <link>http://localhost:1313/p/cs106l-winter2025-assignment3-make-a-class/</link>
+        <link>https://YuTaki23.github.io/p/cs106l-winter2025-assignment3-make-a-class/</link>
         <pubDate>Fri, 11 Apr 2025 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/p/cs106l-winter2025-assignment3-make-a-class/</guid>
+        <guid>https://YuTaki23.github.io/p/cs106l-winter2025-assignment3-make-a-class/</guid>
         <description>&lt;h2 id=&#34;遇到的问题&#34;&gt;遇到的问题
 &lt;/h2&gt;&lt;p&gt;最后的编译过不去，不知道为什么卡在
 &lt;code&gt;Installing CastXML&lt;/code&gt;就不动了
@@ -963,10 +963,10 @@ friends的&lt;code&gt;name&lt;/code&gt;，就需要思考了，首先&lt;code&gt
         </item>
         <item>
         <title>CS106L Winter2025 Assignment2 Marriage Pact</title>
-        <link>http://localhost:1313/p/cs106l-winter2025-assignment2-marriage-pact/</link>
+        <link>https://YuTaki23.github.io/p/cs106l-winter2025-assignment2-marriage-pact/</link>
         <pubDate>Wed, 09 Apr 2025 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/p/cs106l-winter2025-assignment2-marriage-pact/</guid>
+        <guid>https://YuTaki23.github.io/p/cs106l-winter2025-assignment2-marriage-pact/</guid>
         <description>&lt;h2 id=&#34;写在前面&#34;&gt;写在前面
 &lt;/h2&gt;&lt;p&gt;本作业取自Stanford CS106L Winter 2025 第2个Assignment。主要考察对读取文件内容、容器等内容的考察，总体难度不大，但是有几个坑，笔者会在下方标注&lt;strong&gt;坑处&lt;/strong&gt;，如果你的测试过不去，大概率就是这里出了问题。&lt;/p&gt;
 &lt;h2 id=&#34;具体思路&#34;&gt;具体思路
@@ -1123,10 +1123,10 @@ friends的&lt;code&gt;name&lt;/code&gt;，就需要思考了，首先&lt;code&gt
         </item>
         <item>
         <title>CS106L Winter2025 NOTES</title>
-        <link>http://localhost:1313/p/cs106l-winter2025-notes/</link>
+        <link>https://YuTaki23.github.io/p/cs106l-winter2025-notes/</link>
         <pubDate>Sun, 06 Apr 2025 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/p/cs106l-winter2025-notes/</guid>
+        <guid>https://YuTaki23.github.io/p/cs106l-winter2025-notes/</guid>
         <description>&lt;h2 id=&#34;1-types-and-structs&#34;&gt;1. Types and Structs
 &lt;/h2&gt;&lt;h3 id=&#34;11-什么是c&#34;&gt;1.1 什么是C++？
 &lt;/h3&gt;&lt;ol&gt;
@@ -3571,10 +3571,10 @@ returns true if contained value exists, false otherwise
         </item>
         <item>
         <title>CS61B SP18 Lab 10 Priority Queues</title>
-        <link>http://localhost:1313/p/cs61b-sp18-lab-10-priority-queues/</link>
+        <link>https://YuTaki23.github.io/p/cs61b-sp18-lab-10-priority-queues/</link>
         <pubDate>Sun, 06 Apr 2025 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/p/cs61b-sp18-lab-10-priority-queues/</guid>
+        <guid>https://YuTaki23.github.io/p/cs61b-sp18-lab-10-priority-queues/</guid>
         <description>&lt;h2 id=&#34;具体思路&#34;&gt;具体思路
 &lt;/h2&gt;&lt;p&gt;本lab大致内容为让我们使用数组来实现一颗树，且树要有类似于BST的搜索功能，但这里的比较方法不是简单的比较，而是每个节点都存在一个优先级，值越小优先级越大。题目给了我们许多脚手架，我的建议是一直看下去知道&lt;code&gt;size()&lt;/code&gt;方法，连同注释也要一起看，这样就会对整个内容有个大致的了解，这很重要。
 以下做题顺序以lab建议我们的做题顺序为准。&lt;/p&gt;
@@ -3794,10 +3794,10 @@ returns true if contained value exists, false otherwise
         </item>
         <item>
         <title>CS61B SP18 HW 3 Hashing</title>
-        <link>http://localhost:1313/p/cs61b-sp18-hw-3-hashing/</link>
+        <link>https://YuTaki23.github.io/p/cs61b-sp18-hw-3-hashing/</link>
         <pubDate>Sat, 05 Apr 2025 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/p/cs61b-sp18-hw-3-hashing/</guid>
+        <guid>https://YuTaki23.github.io/p/cs61b-sp18-hw-3-hashing/</guid>
         <description>&lt;h1 id=&#34;hw3-hashing&#34;&gt;HW3: Hashing
 &lt;/h1&gt;&lt;h2 id=&#34;具体思路&#34;&gt;具体思路
 &lt;/h2&gt;&lt;h3 id=&#34;simple-oomage&#34;&gt;Simple Oomage
@@ -3898,10 +3898,10 @@ returns true if contained value exists, false otherwise
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;boolean&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;USE_PERFECT_HASH&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/cs61b-sp18-hw-3-hashing/image.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://YuTaki23.github.io/p/cs61b-sp18-hw-3-hashing/image.png&#34;
 	width=&#34;547&#34;
 	height=&#34;1157&#34;
-	srcset=&#34;http://localhost:1313/p/cs61b-sp18-hw-3-hashing/image_hu_17b0536d97e4b69a.png 480w, http://localhost:1313/p/cs61b-sp18-hw-3-hashing/image_hu_83b1fe4c46b1a161.png 1024w&#34;
+	srcset=&#34;https://YuTaki23.github.io/p/cs61b-sp18-hw-3-hashing/image_hu_17b0536d97e4b69a.png 480w, https://YuTaki23.github.io/p/cs61b-sp18-hw-3-hashing/image_hu_83b1fe4c46b1a161.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;autograde&#34;
@@ -3916,10 +3916,10 @@ returns true if contained value exists, false otherwise
         </item>
         <item>
         <title>CS106L Winter2025 Assignment1 SimpleEnroll</title>
-        <link>http://localhost:1313/p/cs106l-winter2025-assignment1-simpleenroll/</link>
+        <link>https://YuTaki23.github.io/p/cs106l-winter2025-assignment1-simpleenroll/</link>
         <pubDate>Mon, 31 Mar 2025 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/p/cs106l-winter2025-assignment1-simpleenroll/</guid>
+        <guid>https://YuTaki23.github.io/p/cs106l-winter2025-assignment1-simpleenroll/</guid>
         <description>&lt;h2 id=&#34;写在前面&#34;&gt;写在前面
 &lt;/h2&gt;&lt;p&gt;本文取自Stanford CS106L的第一个作业，以下为笔者对本作业的思考以及对C++的一些思考。&lt;/p&gt;
 &lt;p&gt;CS106L作为C++的课程名不虚传，其特性只有自己写题时才能感知出来，一个简单的操作居然会有许多不同的方法来实现，笔者十分震惊，在这之前笔者对于C++仅是只闻其名，不闻其人。&lt;/p&gt;
@@ -4107,10 +4107,10 @@ returns true if contained value exists, false otherwise
 &lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;不要忘了将&lt;code&gt;main&lt;/code&gt;函数的注释给删掉，才能进行autograde评分。笔者在这里起码缠了半个小时（要疯了）&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/cs106l-winter2025-assignment1-simpleenroll/image.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://YuTaki23.github.io/p/cs106l-winter2025-assignment1-simpleenroll/image.png&#34;
 	width=&#34;925&#34;
 	height=&#34;291&#34;
-	srcset=&#34;http://localhost:1313/p/cs106l-winter2025-assignment1-simpleenroll/image_hu_e7c1842c41e43dfb.png 480w, http://localhost:1313/p/cs106l-winter2025-assignment1-simpleenroll/image_hu_32d8aeed6e11fe3b.png 1024w&#34;
+	srcset=&#34;https://YuTaki23.github.io/p/cs106l-winter2025-assignment1-simpleenroll/image_hu_e7c1842c41e43dfb.png 480w, https://YuTaki23.github.io/p/cs106l-winter2025-assignment1-simpleenroll/image_hu_32d8aeed6e11fe3b.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;autograde&#34;
@@ -4125,10 +4125,10 @@ returns true if contained value exists, false otherwise
         </item>
         <item>
         <title>CS61B SP18 Lab9 Tree Maps vs. Hash Maps</title>
-        <link>http://localhost:1313/p/cs61b-sp18-lab9-tree-maps-vs.-hash-maps/</link>
+        <link>https://YuTaki23.github.io/p/cs61b-sp18-lab9-tree-maps-vs.-hash-maps/</link>
         <pubDate>Wed, 26 Mar 2025 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/p/cs61b-sp18-lab9-tree-maps-vs.-hash-maps/</guid>
+        <guid>https://YuTaki23.github.io/p/cs61b-sp18-lab9-tree-maps-vs.-hash-maps/</guid>
         <description>&lt;h2 id=&#34;写在前面&#34;&gt;写在前面
 &lt;/h2&gt;&lt;p&gt;本lab取自UCB CS61B SP18 Lab9，具体内容为使用二叉搜索树和哈希表实现map。&lt;/p&gt;
 &lt;p&gt;若本文存在错误或有更好的想法，欢迎与我联系。&lt;/p&gt;
@@ -4352,10 +4352,10 @@ returns true if contained value exists, false otherwise
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/cs61b-sp18-lab9-tree-maps-vs.-hash-maps/image.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://YuTaki23.github.io/p/cs61b-sp18-lab9-tree-maps-vs.-hash-maps/image.png&#34;
 	width=&#34;527&#34;
 	height=&#34;1122&#34;
-	srcset=&#34;http://localhost:1313/p/cs61b-sp18-lab9-tree-maps-vs.-hash-maps/image_hu_dc28149f8a052aa0.png 480w, http://localhost:1313/p/cs61b-sp18-lab9-tree-maps-vs.-hash-maps/image_hu_a306e26245aeaa39.png 1024w&#34;
+	srcset=&#34;https://YuTaki23.github.io/p/cs61b-sp18-lab9-tree-maps-vs.-hash-maps/image_hu_dc28149f8a052aa0.png 480w, https://YuTaki23.github.io/p/cs61b-sp18-lab9-tree-maps-vs.-hash-maps/image_hu_a306e26245aeaa39.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;autograde&#34;
@@ -4372,11 +4372,11 @@ returns true if contained value exists, false otherwise
         </item>
         <item>
         <title>CS61B SP18 HW2 Percolation</title>
-        <link>http://localhost:1313/p/cs61b-sp18-hw2-percolation/</link>
+        <link>https://YuTaki23.github.io/p/cs61b-sp18-hw2-percolation/</link>
         <pubDate>Sun, 23 Mar 2025 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/p/cs61b-sp18-hw2-percolation/</guid>
-        <description>&lt;img src="http://localhost:1313/p/cs61b-sp18-hw2-percolation/image2.png" alt="Featured image of post CS61B SP18 HW2 Percolation" /&gt;&lt;h2 id=&#34;写在前面&#34;&gt;写在前面
+        <guid>https://YuTaki23.github.io/p/cs61b-sp18-hw2-percolation/</guid>
+        <description>&lt;img src="https://YuTaki23.github.io/p/cs61b-sp18-hw2-percolation/image2.png" alt="Featured image of post CS61B SP18 HW2 Percolation" /&gt;&lt;h2 id=&#34;写在前面&#34;&gt;写在前面
 &lt;/h2&gt;&lt;p&gt;本HW取自UCB CS61B SP18的HW2: Percolation。&lt;/p&gt;
 &lt;p&gt;主要内容为在给定数据结构的情况下，实现一个现实生活中的应用，很好的锻炼了我们对已有API情况下编写代码的能力。&lt;/p&gt;
 &lt;p&gt;本文为笔者参考了多方笔记所写，在此感谢所有付出的人，具体参考资料可看最后。&lt;/p&gt;
@@ -4511,10 +4511,10 @@ returns true if contained value exists, false otherwise
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;有了不相交集，我们就应该判断一个箱子是否与另一个箱子相连，在这里应该是在&lt;code&gt;open&lt;/code&gt;方法中添加，每当我们打开一个箱子后，就要在不相交集中添加一个元素，查看不相交集的API，可以发现&lt;code&gt;union(int p, int q)&lt;/code&gt;方法是很符合我们所想要的内容的，但我们仔细观察一下，这里的参数需要的是两个整型，我们表示一个箱子用的是一个数组，很明显不符，因此我们就需要把每个箱子添加一个唯一的index，根据Josh教授的提示，我们可以看出，&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/cs61b-sp18-hw2-percolation/image3.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://YuTaki23.github.io/p/cs61b-sp18-hw2-percolation/image3.png&#34;
 	width=&#34;1723&#34;
 	height=&#34;967&#34;
-	srcset=&#34;http://localhost:1313/p/cs61b-sp18-hw2-percolation/image3_hu_be5530029e2b5ea1.png 480w, http://localhost:1313/p/cs61b-sp18-hw2-percolation/image3_hu_5f0a2cbaf4d17d8d.png 1024w&#34;
+	srcset=&#34;https://YuTaki23.github.io/p/cs61b-sp18-hw2-percolation/image3_hu_be5530029e2b5ea1.png 480w, https://YuTaki23.github.io/p/cs61b-sp18-hw2-percolation/image3_hu_5f0a2cbaf4d17d8d.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -4639,10 +4639,10 @@ returns true if contained value exists, false otherwise
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;但是我们可以发现，这需要我们判断上面每一个箱子，这属于线性时间，不符合题目所要求的常数时间，所以此方法不可取，还需寻找其他方法，根据Josh教授给出的提示，&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/cs61b-sp18-hw2-percolation/image4.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://YuTaki23.github.io/p/cs61b-sp18-hw2-percolation/image4.png&#34;
 	width=&#34;1717&#34;
 	height=&#34;952&#34;
-	srcset=&#34;http://localhost:1313/p/cs61b-sp18-hw2-percolation/image4_hu_c04e8dc327c81a4f.png 480w, http://localhost:1313/p/cs61b-sp18-hw2-percolation/image4_hu_607701c231117555.png 1024w&#34;
+	srcset=&#34;https://YuTaki23.github.io/p/cs61b-sp18-hw2-percolation/image4_hu_c04e8dc327c81a4f.png 480w, https://YuTaki23.github.io/p/cs61b-sp18-hw2-percolation/image4_hu_607701c231117555.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -4816,10 +4816,10 @@ returns true if contained value exists, false otherwise
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;但是在这里会出现一个问题，Josh教授给我们指出来了，&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/cs61b-sp18-hw2-percolation/image5.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://YuTaki23.github.io/p/cs61b-sp18-hw2-percolation/image5.png&#34;
 	width=&#34;1710&#34;
 	height=&#34;926&#34;
-	srcset=&#34;http://localhost:1313/p/cs61b-sp18-hw2-percolation/image5_hu_ced4a2f8d7fb57f5.png 480w, http://localhost:1313/p/cs61b-sp18-hw2-percolation/image5_hu_f20352657faca122.png 1024w&#34;
+	srcset=&#34;https://YuTaki23.github.io/p/cs61b-sp18-hw2-percolation/image5_hu_ced4a2f8d7fb57f5.png 480w, https://YuTaki23.github.io/p/cs61b-sp18-hw2-percolation/image5_hu_f20352657faca122.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -5137,10 +5137,10 @@ returns true if contained value exists, false otherwise
 &lt;/div&gt;&lt;p&gt;至此，所有内容均已完成，可以用模拟来看看自己的程序是否对，也可以看看教授给出的模拟后的样子。&lt;/p&gt;
 &lt;p&gt;详细内容可以看我的&lt;a class=&#34;link&#34; href=&#34;https://github.com/YuTaki23/CS61B-SP18/tree/main/hw2&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;GitHub仓库&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/cs61b-sp18-hw2-percolation/image1.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://YuTaki23.github.io/p/cs61b-sp18-hw2-percolation/image1.png&#34;
 	width=&#34;550&#34;
 	height=&#34;1157&#34;
-	srcset=&#34;http://localhost:1313/p/cs61b-sp18-hw2-percolation/image1_hu_7520b0113387ea06.png 480w, http://localhost:1313/p/cs61b-sp18-hw2-percolation/image1_hu_4edf6d9ade31397f.png 1024w&#34;
+	srcset=&#34;https://YuTaki23.github.io/p/cs61b-sp18-hw2-percolation/image1_hu_7520b0113387ea06.png 480w, https://YuTaki23.github.io/p/cs61b-sp18-hw2-percolation/image1_hu_4edf6d9ade31397f.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;autograde&#34;
@@ -5164,10 +5164,10 @@ returns true if contained value exists, false otherwise
         </item>
         <item>
         <title>CS61B SP18 HW 1 Packages, Interfaces, Generics, Exceptions, Iteration</title>
-        <link>http://localhost:1313/p/cs61b-sp18-hw-1-packages-interfaces-generics-exceptions-iteration/</link>
+        <link>https://YuTaki23.github.io/p/cs61b-sp18-hw-1-packages-interfaces-generics-exceptions-iteration/</link>
         <pubDate>Sat, 22 Mar 2025 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/p/cs61b-sp18-hw-1-packages-interfaces-generics-exceptions-iteration/</guid>
+        <guid>https://YuTaki23.github.io/p/cs61b-sp18-hw-1-packages-interfaces-generics-exceptions-iteration/</guid>
         <description>&lt;h2 id=&#34;写在前面&#34;&gt;写在前面
 &lt;/h2&gt;&lt;p&gt;本Homework取自UCB CS61B SP18的HW1。&lt;/p&gt;
 &lt;p&gt;本HW需要我们从十分底层开始一步一步抽象直到最后完成一个模拟音乐的程序，很好的锻炼了我们对于Java项目的组织能力与Java的特性如继承与多态等。&lt;/p&gt;
@@ -5647,10 +5647,10 @@ returns true if contained value exists, false otherwise
 &lt;/h4&gt;&lt;p&gt;上文已完成，不赘述。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;详细内容可以看我的&lt;a class=&#34;link&#34; href=&#34;https://github.com/YuTaki23/CS61B-SP18/tree/main/hw1&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;GitHub仓库&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/cs61b-sp18-hw-1-packages-interfaces-generics-exceptions-iteration/image1.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://YuTaki23.github.io/p/cs61b-sp18-hw-1-packages-interfaces-generics-exceptions-iteration/image1.png&#34;
 	width=&#34;543&#34;
 	height=&#34;1157&#34;
-	srcset=&#34;http://localhost:1313/p/cs61b-sp18-hw-1-packages-interfaces-generics-exceptions-iteration/image1_hu_a85b68d291e45198.png 480w, http://localhost:1313/p/cs61b-sp18-hw-1-packages-interfaces-generics-exceptions-iteration/image1_hu_78a5847be658c867.png 1024w&#34;
+	srcset=&#34;https://YuTaki23.github.io/p/cs61b-sp18-hw-1-packages-interfaces-generics-exceptions-iteration/image1_hu_a85b68d291e45198.png 480w, https://YuTaki23.github.io/p/cs61b-sp18-hw-1-packages-interfaces-generics-exceptions-iteration/image1_hu_78a5847be658c867.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;autograde&#34;
@@ -5668,10 +5668,10 @@ returns true if contained value exists, false otherwise
         </item>
         <item>
         <title>CS61B Project1B Applying and Testing Data Structures version 1.0</title>
-        <link>http://localhost:1313/p/cs61b-project1b-applying-and-testing-data-structures-version-1.0/</link>
+        <link>https://YuTaki23.github.io/p/cs61b-project1b-applying-and-testing-data-structures-version-1.0/</link>
         <pubDate>Sat, 15 Mar 2025 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/p/cs61b-project1b-applying-and-testing-data-structures-version-1.0/</guid>
+        <guid>https://YuTaki23.github.io/p/cs61b-project1b-applying-and-testing-data-structures-version-1.0/</guid>
         <description>&lt;h2 id=&#34;写在前面&#34;&gt;写在前面
 &lt;/h2&gt;&lt;p&gt;本项目取自UCB CS61B SP18的Project1B，整体来说难度不大，主要是考察我们在已给出API的情况下完成任务，这或许是未来工作时很常见的工作流。本文章仅为笔者做题时的想法，如果存在错误或您有更好的想法，欢迎与我联系。&lt;/p&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;mailto:yutaki23@163.com&#34; &gt;点这里向我发邮件~&lt;/a&gt;&lt;/p&gt;
@@ -6103,10 +6103,10 @@ returns true if contained value exists, false otherwise
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;&lt;strong&gt;总的代码实现可以看我的&lt;a class=&#34;link&#34; href=&#34;https://github.com/YuTaki23/CS61B-SP18/tree/main/proj1b&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;GitHub仓库&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/cs61b-project1b-applying-and-testing-data-structures-version-1.0/image1.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://YuTaki23.github.io/p/cs61b-project1b-applying-and-testing-data-structures-version-1.0/image1.png&#34;
 	width=&#34;546&#34;
 	height=&#34;1157&#34;
-	srcset=&#34;http://localhost:1313/p/cs61b-project1b-applying-and-testing-data-structures-version-1.0/image1_hu_cbcbf73af8ecb4a2.png 480w, http://localhost:1313/p/cs61b-project1b-applying-and-testing-data-structures-version-1.0/image1_hu_e94c74440b9444ae.png 1024w&#34;
+	srcset=&#34;https://YuTaki23.github.io/p/cs61b-project1b-applying-and-testing-data-structures-version-1.0/image1_hu_cbcbf73af8ecb4a2.png 480w, https://YuTaki23.github.io/p/cs61b-project1b-applying-and-testing-data-structures-version-1.0/image1_hu_e94c74440b9444ae.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;GradeScope评分&#34;
@@ -6123,10 +6123,10 @@ returns true if contained value exists, false otherwise
         </item>
         <item>
         <title>CS61B SP18 Project1A Data Structure</title>
-        <link>http://localhost:1313/p/cs61b-sp18-project1a-data-structure/</link>
+        <link>https://YuTaki23.github.io/p/cs61b-sp18-project1a-data-structure/</link>
         <pubDate>Wed, 12 Mar 2025 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/p/cs61b-sp18-project1a-data-structure/</guid>
+        <guid>https://YuTaki23.github.io/p/cs61b-sp18-project1a-data-structure/</guid>
         <description>&lt;h1 id=&#34;yutaki-cs61b-sp18-project1a-data-structure&#34;&gt;[YuTaki] CS61B SP18 Project1A: Data Structure
 &lt;/h1&gt;&lt;h2 id=&#34;写在前面&#34;&gt;写在前面
 &lt;/h2&gt;&lt;p&gt;本项目取自CS61B SP18的Project1A，仅为个人做题时的思路及想法，如果有更好的想法，欢迎与我联系。&lt;/p&gt;
@@ -6137,10 +6137,10 @@ returns true if contained value exists, false otherwise
 &lt;/h4&gt;&lt;p&gt;在最开始初始化链表时，大家就应该把思路理清楚。Josh教授在LinkedListDeque这一部分推荐我们使用两个方法来实现，第一个是&lt;a class=&#34;link&#34; href=&#34;https://docs.google.com/presentation/d/1suIeJ1SIGxoNDT8enLwsSrMxcw4JTvJBsMcdARpqQCk/pub?start=false&amp;amp;loop=false&amp;amp;delayms=3000&amp;amp;slide=id.g829fe3f43_0_291&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;two sentinel topology&lt;/a&gt;，第二个是&lt;a class=&#34;link&#34; href=&#34;https://docs.google.com/presentation/d/1suIeJ1SIGxoNDT8enLwsSrMxcw4JTvJBsMcdARpqQCk/pub?start=false&amp;amp;loop=false&amp;amp;delayms=3000&amp;amp;slide=id.g829fe3f43_0_376&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;circular sentinel topology&lt;/a&gt;，在这里笔者使用的方法是第二个也是Josh教授推荐我们使用的方法。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/cs61b-sp18-project1a-data-structure/image1.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://YuTaki23.github.io/p/cs61b-sp18-project1a-data-structure/image1.png&#34;
 	width=&#34;2201&#34;
 	height=&#34;1238&#34;
-	srcset=&#34;http://localhost:1313/p/cs61b-sp18-project1a-data-structure/image1_hu_b07ee367a3fe8466.png 480w, http://localhost:1313/p/cs61b-sp18-project1a-data-structure/image1_hu_66ed8ffa6a8a2a4.png 1024w&#34;
+	srcset=&#34;https://YuTaki23.github.io/p/cs61b-sp18-project1a-data-structure/image1_hu_b07ee367a3fe8466.png 480w, https://YuTaki23.github.io/p/cs61b-sp18-project1a-data-structure/image1_hu_66ed8ffa6a8a2a4.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Circular sentinel&#34;
@@ -6213,10 +6213,10 @@ returns true if contained value exists, false otherwise
 &lt;/div&gt;&lt;p&gt;有同学可能会想，为什么不可以在new的时候就把正确的填上去，而是要加上null，毫无意义。一开始整个节点还没有被创建出来，指向一个不存在的东西或许会造成空指针异常。&lt;/p&gt;
 &lt;h4 id=&#34;public-void-addfirstt-item&#34;&gt;&lt;code&gt;public void addFirst(T item)&lt;/code&gt;
 &lt;/h4&gt;&lt;p&gt;在考虑&lt;code&gt;addFirst&lt;/code&gt;时，应该清楚一点，在这里应该使用更为通用的方法，即当前已经存在了一个&lt;code&gt;IntNode&lt;/code&gt;，我们需要再另外添加一个，这不会像仅存在一个&lt;code&gt;sentinel&lt;/code&gt;一样，具有特殊性。对于此题，画图是一个很好的方法，我在这里简易的画了一个，不喜勿喷。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/cs61b-sp18-project1a-data-structure/image6.jpg&#34;
+&lt;p&gt;&lt;img src=&#34;https://YuTaki23.github.io/p/cs61b-sp18-project1a-data-structure/image6.jpg&#34;
 	width=&#34;906&#34;
 	height=&#34;869&#34;
-	srcset=&#34;http://localhost:1313/p/cs61b-sp18-project1a-data-structure/image6_hu_740ad2955d4292d7.jpg 480w, http://localhost:1313/p/cs61b-sp18-project1a-data-structure/image6_hu_d0f2394f2b697134.jpg 1024w&#34;
+	srcset=&#34;https://YuTaki23.github.io/p/cs61b-sp18-project1a-data-structure/image6_hu_740ad2955d4292d7.jpg 480w, https://YuTaki23.github.io/p/cs61b-sp18-project1a-data-structure/image6_hu_d0f2394f2b697134.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;addFirst简图&#34;
@@ -6454,10 +6454,10 @@ returns true if contained value exists, false otherwise
 &lt;/div&gt;&lt;h3 id=&#34;arraydeque&#34;&gt;ArrayDeque
 &lt;/h3&gt;&lt;p&gt;对于此类，我的想法是首先使用Josh教授特别推荐的circular sentinel，其次先把整体思路写出来，最后再做&lt;code&gt;resize&lt;/code&gt;部分。&lt;/p&gt;
 &lt;h4 id=&#34;public-arraydeque&#34;&gt;&lt;code&gt;public ArrayDeque()&lt;/code&gt;
-&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/cs61b-sp18-project1a-data-structure/image2.png&#34;
+&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://YuTaki23.github.io/p/cs61b-sp18-project1a-data-structure/image2.png&#34;
 	width=&#34;1729&#34;
 	height=&#34;964&#34;
-	srcset=&#34;http://localhost:1313/p/cs61b-sp18-project1a-data-structure/image2_hu_f91930acec3cff35.png 480w, http://localhost:1313/p/cs61b-sp18-project1a-data-structure/image2_hu_c2469ede01d79724.png 1024w&#34;
+	srcset=&#34;https://YuTaki23.github.io/p/cs61b-sp18-project1a-data-structure/image2_hu_f91930acec3cff35.png 480w, https://YuTaki23.github.io/p/cs61b-sp18-project1a-data-structure/image2_hu_c2469ede01d79724.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;ArrayDeque Tips&#34;
@@ -6506,10 +6506,10 @@ returns true if contained value exists, false otherwise
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;h4 id=&#34;public-void-t-addlastt-item&#34;&gt;&lt;code&gt;public void T addLast(T item)&lt;/code&gt;
-&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/cs61b-sp18-project1a-data-structure/image3.png&#34;
+&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://YuTaki23.github.io/p/cs61b-sp18-project1a-data-structure/image3.png&#34;
 	width=&#34;1726&#34;
 	height=&#34;964&#34;
-	srcset=&#34;http://localhost:1313/p/cs61b-sp18-project1a-data-structure/image3_hu_2e02c34a7c78eb3c.png 480w, http://localhost:1313/p/cs61b-sp18-project1a-data-structure/image3_hu_f29b8e70f812293f.png 1024w&#34;
+	srcset=&#34;https://YuTaki23.github.io/p/cs61b-sp18-project1a-data-structure/image3_hu_2e02c34a7c78eb3c.png 480w, https://YuTaki23.github.io/p/cs61b-sp18-project1a-data-structure/image3_hu_f29b8e70f812293f.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;ArrayDeque Tips&#34;
@@ -6601,10 +6601,10 @@ returns true if contained value exists, false otherwise
 &lt;/div&gt;
 &lt;/div&gt;&lt;h4 id=&#34;public-void-printdeque-1&#34;&gt;&lt;code&gt;public void printDeque()&lt;/code&gt;
 &lt;/h4&gt;&lt;p&gt;此题需要我们打印整个连边，首先很容易想到有一个base case，当链表里面没有东西的时候，直接返回；其次我们需要明白的一点是，数组01234的顺序并不是我们链表的顺序，所以不能简单的迭代打印整个数组，观察教授给我们的提示，&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/cs61b-sp18-project1a-data-structure/image4.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://YuTaki23.github.io/p/cs61b-sp18-project1a-data-structure/image4.png&#34;
 	width=&#34;1719&#34;
 	height=&#34;960&#34;
-	srcset=&#34;http://localhost:1313/p/cs61b-sp18-project1a-data-structure/image4_hu_16b37e946354d66e.png 480w, http://localhost:1313/p/cs61b-sp18-project1a-data-structure/image4_hu_d613fdb1323dd2bd.png 1024w&#34;
+	srcset=&#34;https://YuTaki23.github.io/p/cs61b-sp18-project1a-data-structure/image4_hu_16b37e946354d66e.png 480w, https://YuTaki23.github.io/p/cs61b-sp18-project1a-data-structure/image4_hu_d613fdb1323dd2bd.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;ArrayDeque Tips&#34;
@@ -6764,10 +6764,10 @@ returns true if contained value exists, false otherwise
 &lt;/h4&gt;&lt;p&gt;这道题确实没想明白，参考了别人的答案，还是想不通。&lt;/p&gt;
 &lt;h4 id=&#34;resize&#34;&gt;&lt;code&gt;resize&lt;/code&gt;
 &lt;/h4&gt;&lt;p&gt;接下来，就应该想想可变数组的想法了。题目告诉我们，对于长度大于等于16的数组，应该一直保持使用系数为25%，即若当前有16个元素，那我们的数组长度应当为64，&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/cs61b-sp18-project1a-data-structure/image5.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://YuTaki23.github.io/p/cs61b-sp18-project1a-data-structure/image5.png&#34;
 	width=&#34;1720&#34;
 	height=&#34;970&#34;
-	srcset=&#34;http://localhost:1313/p/cs61b-sp18-project1a-data-structure/image5_hu_f4e9ecdb407992f0.png 480w, http://localhost:1313/p/cs61b-sp18-project1a-data-structure/image5_hu_f2885d9f484a8240.png 1024w&#34;
+	srcset=&#34;https://YuTaki23.github.io/p/cs61b-sp18-project1a-data-structure/image5_hu_f4e9ecdb407992f0.png 480w, https://YuTaki23.github.io/p/cs61b-sp18-project1a-data-structure/image5_hu_f2885d9f484a8240.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Resizing&#34;
@@ -6786,10 +6786,10 @@ returns true if contained value exists, false otherwise
         </item>
         <item>
         <title>Make Life More Regular —— 听歌篇</title>
-        <link>http://localhost:1313/p/make-life-more-regular-%E5%90%AC%E6%AD%8C%E7%AF%87/</link>
+        <link>https://YuTaki23.github.io/p/make-life-more-regular-%E5%90%AC%E6%AD%8C%E7%AF%87/</link>
         <pubDate>Wed, 12 Mar 2025 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/p/make-life-more-regular-%E5%90%AC%E6%AD%8C%E7%AF%87/</guid>
+        <guid>https://YuTaki23.github.io/p/make-life-more-regular-%E5%90%AC%E6%AD%8C%E7%AF%87/</guid>
         <description>&lt;h1 id=&#34;yutaki-make-life-more-regular听歌篇&#34;&gt;[YuTaki] Make Life More Regular——听歌篇
 &lt;/h1&gt;&lt;h2 id=&#34;一写在前面&#34;&gt;一、写在前面
 &lt;/h2&gt;&lt;p&gt;&lt;strong&gt;让生活更有条理性。&lt;/strong&gt;&lt;/p&gt;
@@ -6823,10 +6823,10 @@ returns true if contained value exists, false otherwise
 &lt;li&gt;**找到你喜欢的歌。**一般来说，大家喜欢听的歌都可以在互联网上找到，包括但不限于哔哩哔哩、抖音、YouTube等媒体播放网站。笔者在这里以哔哩哔哩和《麦恩莉》为例。将这首歌的网站复制下来，得到类似于这样的https://www.bilibili.com/video/BVxxxxxx/&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;一个网站。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;下载歌曲。&lt;strong&gt;打开bilidown。将网站复制进去，即可得到类似于这样的界面。随后点击&lt;/strong&gt;音频&lt;/strong&gt;按钮即可开始下载，注意到，可以提前将音质调为&lt;strong&gt;192k&lt;/strong&gt;，这样音质会更好。之后，会调出下载界面，此处笔者建议统一将文件名改为&lt;strong&gt;歌曲名-作者.m4a&lt;/strong&gt;，这都是为了之后添加歌曲信息时更加方便。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/make-life-more-regular-%E5%90%AC%E6%AD%8C%E7%AF%87/image1.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://YuTaki23.github.io/p/make-life-more-regular-%E5%90%AC%E6%AD%8C%E7%AF%87/image1.png&#34;
 	width=&#34;1652&#34;
 	height=&#34;1097&#34;
-	srcset=&#34;http://localhost:1313/p/make-life-more-regular-%E5%90%AC%E6%AD%8C%E7%AF%87/image1_hu_d98f7f38ba05e9ad.png 480w, http://localhost:1313/p/make-life-more-regular-%E5%90%AC%E6%AD%8C%E7%AF%87/image1_hu_8863325dcee8bea8.png 1024w&#34;
+	srcset=&#34;https://YuTaki23.github.io/p/make-life-more-regular-%E5%90%AC%E6%AD%8C%E7%AF%87/image1_hu_d98f7f38ba05e9ad.png 480w, https://YuTaki23.github.io/p/make-life-more-regular-%E5%90%AC%E6%AD%8C%E7%AF%87/image1_hu_8863325dcee8bea8.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;bilidown&#34;
@@ -6846,10 +6846,10 @@ returns true if contained value exists, false otherwise
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/make-life-more-regular-%E5%90%AC%E6%AD%8C%E7%AF%87/image2.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://YuTaki23.github.io/p/make-life-more-regular-%E5%90%AC%E6%AD%8C%E7%AF%87/image2.png&#34;
 	width=&#34;1402&#34;
 	height=&#34;859&#34;
-	srcset=&#34;http://localhost:1313/p/make-life-more-regular-%E5%90%AC%E6%AD%8C%E7%AF%87/image2_hu_ab3060903a235760.png 480w, http://localhost:1313/p/make-life-more-regular-%E5%90%AC%E6%AD%8C%E7%AF%87/image2_hu_4a0d72a55db2fcb6.png 1024w&#34;
+	srcset=&#34;https://YuTaki23.github.io/p/make-life-more-regular-%E5%90%AC%E6%AD%8C%E7%AF%87/image2_hu_ab3060903a235760.png 480w, https://YuTaki23.github.io/p/make-life-more-regular-%E5%90%AC%E6%AD%8C%E7%AF%87/image2_hu_4a0d72a55db2fcb6.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Music Tag&#34;
@@ -6890,11 +6890,11 @@ returns true if contained value exists, false otherwise
         </item>
         <item>
         <title>CS61B SP18 Project0 Nbody Simulation</title>
-        <link>http://localhost:1313/p/cs61b-sp18-project0-nbody-simulation/</link>
+        <link>https://YuTaki23.github.io/p/cs61b-sp18-project0-nbody-simulation/</link>
         <pubDate>Sat, 08 Mar 2025 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/p/cs61b-sp18-project0-nbody-simulation/</guid>
-        <description>&lt;img src="http://localhost:1313/p/cs61b-sp18-project0-nbody-simulation/image1.png" alt="Featured image of post CS61B SP18 Project0 Nbody Simulation" /&gt;&lt;h2 id=&#34;写在前面&#34;&gt;写在前面
+        <guid>https://YuTaki23.github.io/p/cs61b-sp18-project0-nbody-simulation/</guid>
+        <description>&lt;img src="https://YuTaki23.github.io/p/cs61b-sp18-project0-nbody-simulation/image1.png" alt="Featured image of post CS61B SP18 Project0 Nbody Simulation" /&gt;&lt;h2 id=&#34;写在前面&#34;&gt;写在前面
 &lt;/h2&gt;&lt;p&gt;本项目取自 &lt;strong&gt;UCB CS61B SP18&lt;/strong&gt;的Project0: NBody Simulation。作为CS61系列的第二门课，专注于数据结构与算法，本项目只是对&lt;strong&gt;Java&lt;/strong&gt;有了个简单的认识。以下为笔者做题时的心得体会，如有错误或更好的想法，欢迎与我联系。&lt;/p&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;mailto:yutaki23@163.com&#34; &gt;点这里向我发邮件~&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;具体实现&#34;&gt;具体实现
@@ -7320,10 +7320,10 @@ returns true if contained value exists, false otherwise
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;time&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/cs61b-sp18-project0-nbody-simulation/image2.png&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://YuTaki23.github.io/p/cs61b-sp18-project0-nbody-simulation/image2.png&#34;
 	width=&#34;545&#34;
 	height=&#34;1157&#34;
-	srcset=&#34;http://localhost:1313/p/cs61b-sp18-project0-nbody-simulation/image2_hu_1090e90cb64c3b49.png 480w, http://localhost:1313/p/cs61b-sp18-project0-nbody-simulation/image2_hu_7d1ee3dd7931208.png 1024w&#34;
+	srcset=&#34;https://YuTaki23.github.io/p/cs61b-sp18-project0-nbody-simulation/image2_hu_1090e90cb64c3b49.png 480w, https://YuTaki23.github.io/p/cs61b-sp18-project0-nbody-simulation/image2_hu_7d1ee3dd7931208.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;GradeScope评分&#34;
@@ -7342,11 +7342,11 @@ returns true if contained value exists, false otherwise
         </item>
         <item>
         <title>CS61A SP24 Scheme</title>
-        <link>http://localhost:1313/p/cs61a-sp24-scheme/</link>
+        <link>https://YuTaki23.github.io/p/cs61a-sp24-scheme/</link>
         <pubDate>Fri, 07 Mar 2025 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/p/cs61a-sp24-scheme/</guid>
-        <description>&lt;img src="http://localhost:1313/p/cs61a-sp24-scheme/image1.png" alt="Featured image of post CS61A SP24 Scheme" /&gt;&lt;h2 id=&#34;写在前面&#34;&gt;写在前面
+        <guid>https://YuTaki23.github.io/p/cs61a-sp24-scheme/</guid>
+        <description>&lt;img src="https://YuTaki23.github.io/p/cs61a-sp24-scheme/image1.png" alt="Featured image of post CS61A SP24 Scheme" /&gt;&lt;h2 id=&#34;写在前面&#34;&gt;写在前面
 &lt;/h2&gt;&lt;p&gt;本项目为UC Berekly CS61A SP24的 Project4: Scheme。以下为个人对此项目的见解，如有错误或更好的解决方案，欢迎与我联系。&lt;/p&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;mailto:yutaki23@163.com&#34; &gt;点这里向我发邮件~&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;具体思路&#34;&gt;具体思路
@@ -7790,18 +7790,18 @@ returns true if contained value exists, false otherwise
         </item>
         <item>
         <title>Archives</title>
-        <link>http://localhost:1313/archives/</link>
+        <link>https://YuTaki23.github.io/archives/</link>
         <pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/archives/</guid>
+        <guid>https://YuTaki23.github.io/archives/</guid>
         <description></description>
         </item>
         <item>
         <title>About</title>
-        <link>http://localhost:1313/about/</link>
+        <link>https://YuTaki23.github.io/about/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/about/</guid>
+        <guid>https://YuTaki23.github.io/about/</guid>
         <description>&lt;h2 id=&#34;about-me&#34;&gt;About Me
 &lt;/h2&gt;&lt;p&gt;你好，我是YuTaki，一名立志于&lt;strong&gt;coding&lt;/strong&gt;的药学生。&lt;/p&gt;
 &lt;h2 id=&#34;about-blog&#34;&gt;About Blog
@@ -7818,10 +7818,10 @@ returns true if contained value exists, false otherwise
         </item>
         <item>
         <title>Links</title>
-        <link>http://localhost:1313/links/</link>
+        <link>https://YuTaki23.github.io/links/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/links/</guid>
+        <guid>https://YuTaki23.github.io/links/</guid>
         <description>&lt;p&gt;To use this feature, add &lt;code&gt;links&lt;/code&gt; section to frontmatter.&lt;/p&gt;
 &lt;p&gt;This page&amp;rsquo;s frontmatter:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -7853,10 +7853,10 @@ returns true if contained value exists, false otherwise
         </item>
         <item>
         <title>Search</title>
-        <link>http://localhost:1313/search/</link>
+        <link>https://YuTaki23.github.io/search/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/search/</guid>
+        <guid>https://YuTaki23.github.io/search/</guid>
         <description></description>
         </item>
         
