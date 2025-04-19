@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>软件推荐 on YuTaki's Ideas</title><link>https://YuTaki23.github.io/categories/%E8%BD%AF%E4%BB%B6%E6%8E%A8%E8%8D%90/</link><description>Recent content in 软件推荐 on YuTaki's Ideas</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>YuTaki. All rights reserved.</copyright><lastBuildDate>Wed, 12 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://YuTaki23.github.io/categories/%E8%BD%AF%E4%BB%B6%E6%8E%A8%E8%8D%90/index.xml" rel="self" type="application/rss+xml"/><item><title>Make Life More Regular —— 听歌篇</title><link>https://YuTaki23.github.io/p/make-life-more-regular-%E5%90%AC%E6%AD%8C%E7%AF%87/</link><pubDate>Wed, 12 Mar 2025 00:00:00 +0000</pubDate><guid>https://YuTaki23.github.io/p/make-life-more-regular-%E5%90%AC%E6%AD%8C%E7%AF%87/</guid><description>&lt;h1 id="yutaki-make-life-more-regular听歌篇">[YuTaki] Make Life More Regular——听歌篇
+&lt;/h1>&lt;h2 id="一写在前面">一、写在前面
+&lt;/h2>&lt;p>&lt;strong>让生活更有条理性。&lt;/strong>&lt;/p>
+&lt;p>作为&lt;strong>Make Life More Regular&lt;/strong>的第一篇内容，笔者选择了每天都会做的一件事——&lt;strong>听歌&lt;/strong>。&lt;/p>
+&lt;p>你是否还在烦恼自己的歌怎么在平台上突然没有&lt;strong>版权&lt;/strong>了？&lt;/p>
+&lt;p>你是否还在厌倦听歌时看着不同的人发着不同的“&lt;strong>emo文字&lt;/strong>”？&lt;/p>
+&lt;p>本文章仅为笔者自己平时的听歌流，主要方式为将网络音乐下载到本地进行收听，本文章会主要讲解以什么方式下载以及更优雅的设置听歌方式。&lt;/p>
+&lt;p>&lt;strong>本文章仅代表笔者个人观点，主观性很强，一千个读者有一千个哈姆雷特。&lt;/strong>&lt;/p>
+&lt;p>若本文章出现了什么错误或您有更好的想法，欢迎与我联系。&lt;/p>
+&lt;p>[点这里向我发邮箱~](mailto: &lt;a class="link" href="mailto:yutaki23@163.com" >yutaki23@163.com&lt;/a>)&lt;/p>
+&lt;h2 id="二运行设备与主要应用">二、运行设备与主要应用
+&lt;/h2>&lt;ol>
+&lt;li>操作系统：Android12 OriginOS&lt;/li>
+&lt;li>&lt;a class="link" href="https://moriafly.com/program/salt-player.html" target="_blank" rel="noopener"
+>Salt Palyer&lt;/a> 极其优秀的安卓本地音乐播放器，其简洁但不失重要功能深受笔者喜爱。&lt;/li>
+&lt;li>bilidown 一款简洁易下载哔哩哔哩视频的软件。应作者要求，在此不贴上软件地址，有需要的请自行寻找。&lt;/li>
+&lt;li>MusicTag 可将本地音乐的歌曲名、作者、专辑、歌词等信息作为元数据导入到歌曲中。在Salt Player中可以读取出来。&lt;/li>
+&lt;/ol>
+&lt;h2 id="三主要优点与缺点">三、主要优点与缺点
+&lt;/h2>&lt;h3 id="优点">优点
+&lt;/h3>&lt;ol>
+&lt;li>长期存在。不用再担心自己的歌曲会被版权收掉，只要歌曲一直存在本地，只要硬盘不损坏，歌曲就不会有丢失的一天。&lt;/li>
+&lt;li>简单干净的页面。不用在听歌的时候看网友所谓的“丧语录”。&lt;/li>
+&lt;/ol>
+&lt;h3 id="缺点">缺点
+&lt;/h3>&lt;ol>
+&lt;li>对新歌的感知弱。新歌发布后无法第一时间接收到消息，只能由他人推荐，或自己随缘找到。&lt;/li>
+&lt;/ol>
+&lt;h2 id="四操作步骤">四、操作步骤
+&lt;/h2>&lt;ol>
+&lt;li>**找到你喜欢的歌。**一般来说，大家喜欢听的歌都可以在互联网上找到，包括但不限于哔哩哔哩、抖音、YouTube等媒体播放网站。笔者在这里以哔哩哔哩和《麦恩莉》为例。将这首歌的网站复制下来，得到类似于这样的https://www.bilibili.com/video/BVxxxxxx/&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>一个网站。&lt;/li>
+&lt;li>&lt;strong>下载歌曲。&lt;strong>打开bilidown。将网站复制进去，即可得到类似于这样的界面。随后点击&lt;/strong>音频&lt;/strong>按钮即可开始下载，注意到，可以提前将音质调为&lt;strong>192k&lt;/strong>，这样音质会更好。之后，会调出下载界面，此处笔者建议统一将文件名改为&lt;strong>歌曲名-作者.m4a&lt;/strong>，这都是为了之后添加歌曲信息时更加方便。&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://YuTaki23.github.io/p/make-life-more-regular-%E5%90%AC%E6%AD%8C%E7%AF%87/image1.png"
+width="1652"
+height="1097"
+srcset="https://YuTaki23.github.io/p/make-life-more-regular-%E5%90%AC%E6%AD%8C%E7%AF%87/image1_hu_d98f7f38ba05e9ad.png 480w, https://YuTaki23.github.io/p/make-life-more-regular-%E5%90%AC%E6%AD%8C%E7%AF%87/image1_hu_8863325dcee8bea8.png 1024w"
+loading="lazy"
+alt="bilidown"
+class="gallery-image"
+data-flex-grow="150"
+data-flex-basis="361px"
+>&lt;/p>
+&lt;ol start="4">
+&lt;li>**将元数据导入到歌曲中。**打开MusicTag，会看到这些内容，作为使用了很长时间的人来说，我给出的建议是：
+&lt;ul>
+&lt;li>**改变工作目录。**将其改为你下载歌曲的文件夹。&lt;/li>
+&lt;li>&lt;strong>自动匹配标签&lt;/strong>。全选你所下载的歌曲，让软件自动识别其标题、艺术家等内容。&lt;/li>
+&lt;li>&lt;strong>检查&lt;/strong>。大致查看各元数据是否能对的上，如果不，单独找出来在左侧修改错误的内容，如果是封面错误，点击&lt;strong>改变封面&lt;/strong>选择正确的封面，如果是歌词错误，点击&lt;strong>改变歌词&lt;/strong>选择正确的歌词。笔者的经验是，如果一首歌的封面错误，那大概率歌词也有错，其他信息大概率都有错。最后不要忘记右键保存。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://YuTaki23.github.io/p/make-life-more-regular-%E5%90%AC%E6%AD%8C%E7%AF%87/image2.png"
+width="1402"
+height="859"
+srcset="https://YuTaki23.github.io/p/make-life-more-regular-%E5%90%AC%E6%AD%8C%E7%AF%87/image2_hu_ab3060903a235760.png 480w, https://YuTaki23.github.io/p/make-life-more-regular-%E5%90%AC%E6%AD%8C%E7%AF%87/image2_hu_4a0d72a55db2fcb6.png 1024w"
+loading="lazy"
+alt="Music Tag"
+class="gallery-image"
+data-flex-grow="163"
+data-flex-basis="391px"
+>&lt;/p>
+&lt;ol start="4">
+&lt;li>
+&lt;p>&lt;strong>将歌曲传到手机上。&lt;strong>笔者的建议为在手机上创建一个&lt;/strong>Music&lt;/strong>文件夹，用来专门存放下载的歌曲。打开&lt;strong>Salt Player&lt;/strong>，点击左上角，左侧会出现&lt;strong>扫描音乐&lt;/strong>选项，使用自定义文件夹，将其设置为下载歌曲的文件夹，点击&lt;strong>开始扫描&lt;/strong>。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>**Congratulation!**此时，你就可以发现，你的歌曲已经到了Salt Player里面，并且标题、作者、专辑、封面等内容应有尽有。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="五写在后面">五、写在后面
+&lt;/h2>&lt;p>大致的操作步骤就这些，有关这些应用的其他进阶操作，欢迎各位自己摸索。&lt;/p>
+&lt;p>最后，感谢每一位创建这些软件的作者，希望大家尊重开源，享受开源。&lt;strong>开源世界有你更精彩。&lt;/strong>&lt;/p>
+&lt;h2 id="六相关问题">六、相关问题
+&lt;/h2>&lt;p>**问：**我只能使用各大网站下载的歌曲吗？&lt;/p>
+&lt;p>&lt;strong>答：&lt;strong>当然不，如果你能找到&lt;/strong>Flac&lt;/strong>等更高级的格式当然是最好不过，但请不要在手机上直接下载听歌软件上的歌曲，大部分都有加密，过了VIP期限后就无法再听了。&lt;/p>
+&lt;p>&lt;strong>问：&lt;strong>为什么后缀一定要改成&lt;/strong>m4a&lt;/strong>的格式，改成其他的不行吗？&lt;/p>
+&lt;p>&lt;strong>答&lt;/strong>：根据笔者尝试，使用&lt;strong>mp3&lt;/strong>格式时会在将元数据导入歌曲中出现问题，其他格式还没有尝试过，有尝试过的朋友可以补充。&lt;/p>
+&lt;p>&lt;strong>问&lt;/strong>：为什么要在手机上创建一个新的文件夹？&lt;/p>
+&lt;p>&lt;strong>答&lt;/strong>：现在人的手机上大概率会有录音等其他非歌曲内容，Salt Player在识别的时候会将这些内容也识别为歌曲，而创建一个文件夹就可以让Salt Player只识别当前文件夹的内容。&lt;/p>
+&lt;div class="footnotes" role="doc-endnotes">
+&lt;hr>
+&lt;ol>
+&lt;li id="fn:1">
+&lt;p>此网站非正确网站，在此仅为示例，替换成你所找到的歌曲的网站即可。&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/div></description></item></channel></rss>
