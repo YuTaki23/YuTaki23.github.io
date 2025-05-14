@@ -7789,14 +7789,6 @@ returns true if contained value exists, false otherwise
 &lt;p align = &#34;right&#34;&gt;2025年3月7日写于博学楼&lt;/p&gt;</description>
         </item>
         <item>
-        <title>Archives</title>
-        <link>https://YuTaki23.github.io/archives/</link>
-        <pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate>
-        
-        <guid>https://YuTaki23.github.io/archives/</guid>
-        <description></description>
-        </item>
-        <item>
         <title>About</title>
         <link>https://YuTaki23.github.io/about/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -7815,6 +7807,22 @@ returns true if contained value exists, false otherwise
     &gt;GitHub Pages&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p align = &#34;center&#34;&gt;&lt;b&gt;为天地立心，为生民立命，为往圣继绝学，为万世开太平。&lt;/b&gt;&lt;/p&gt;</description>
+        </item>
+        <item>
+        <title>Archives</title>
+        <link>https://YuTaki23.github.io/archives/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://YuTaki23.github.io/archives/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Gallery</title>
+        <link>https://YuTaki23.github.io/gallery/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://YuTaki23.github.io/gallery/</guid>
+        <description></description>
         </item>
         <item>
         <title>Links</title>
