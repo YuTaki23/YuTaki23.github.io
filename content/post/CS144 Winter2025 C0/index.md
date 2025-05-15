@@ -3,7 +3,7 @@ title: CS144 Winter2025 Check0
 description: 关于CS144第零个Check的个人解法
 date: 2025-05-15
 categories:
-    - CS1144
+    - CS144
     - 解题思路
 tags:
     - C++
