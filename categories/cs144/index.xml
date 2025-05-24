@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>CS144 on YuTaki's Ideas</title><link>https://YuTaki23.github.io/categories/cs144/</link><description>Recent content in CS144 on YuTaki's Ideas</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>YuTaki. All rights reserved.</copyright><lastBuildDate>Thu, 15 May 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://YuTaki23.github.io/categories/cs144/index.xml" rel="self" type="application/rss+xml"/><item><title>CS144 Winter2025 Check0</title><link>https://YuTaki23.github.io/p/cs144-winter2025-check0/</link><pubDate>Thu, 15 May 2025 00:00:00 +0000</pubDate><guid>https://YuTaki23.github.io/p/cs144-winter2025-check0/</guid><description>&lt;h2 id="写在前面">写在前面
+&lt;/h2>&lt;p>本文取自 Stanford CS144 Winter2025 minnow Check0，笔者为计算机网络初学者，如有错误表述或不恰当的地方，请指正！&lt;/p>
+&lt;p>欢迎与我&lt;a class="link" href="mailto:yutaki23@163.com" >联系&lt;/a>&lt;/p>
+&lt;h2 id="1-set-up-gnulinux-on-your-computer">1 Set up GNU/Linux on your computer
+&lt;/h2>&lt;p>题目给了我们五个选项来作为本实验的环境，笔者在这里选择了第 3 条，使用虚拟机下载 Ubuntu 24.04 进行学习。&lt;/p>
+&lt;p>值得注意的是，对于 Winter 2025 这个版本，似乎必须要是有 Ubuntu 24.04，但截至目前（2025.5.14）依然还有很多人在使用 Ubuntu 22.04 进行开发，在此，笔者只是提个醒，使用低版本的操作系统无法下载这些包，无法进行开发。&lt;/p>
+&lt;h2 id="2-networking-by-hand">2 Networking by hand
+&lt;/h2>&lt;p>本题需要我们完成两项任务，检索网页和发送电子邮件（没有斯坦福账号，不做解释），这两项任务引出了一个概念&lt;/p>
+&lt;p>&lt;strong>可靠双向字节流&lt;/strong>：在自己的终端上输入一串字符，这串字符最终会以相同的顺序传递给服务器。&lt;/p>
+&lt;h3 id="21-fetch-a-web-page">2.1 Fetch a Web page
+&lt;/h3>&lt;p>跟着题目要求一步一步在终端上输入即可，唯一值得注意的是，输入的速度要快一点，慢了会失败。&lt;/p>
+&lt;h2 id="3-writing-a-network-program-using-an-os-stream-socket">3 Writing a network program using an OS stream Socket
+&lt;/h2>&lt;p>接下来需要编写一些程序来实现&lt;strong>可靠双向字节流&lt;/strong>这一操作。这种功能被称为&lt;strong>流式套接字&lt;/strong>，就像是一个 IO 输入输出流一样，当两个流式套接字连接时，&lt;em>写入其中一个套接字的字节最终会以相同顺序从另一台计算机的套接字中读出&lt;/em>。&lt;/p>
+&lt;p>本实验只需要实现 &lt;code>webget&lt;/code>，创建 TCP 流套接字，连接到 Web 服务器并获取页面，也就是我们在 2.1 节中所做的任务。&lt;/p>
+&lt;h3 id="31-lets-get-startedsetting-up-the-repository-on-your-vm-and-on-github">3.1 Let’s get started—setting up the repository on your VM and On GitHub
+&lt;/h3>&lt;p>从 GitHub 上 clone repo 即可，按自己的方法来，不赘述。&lt;/p>
+&lt;h3 id="32-compiling-the-starter-code">3.2 Compiling the starter code
+&lt;/h3>&lt;p>跟着教程一步步编译即可。遇到的问题是，笔者最开始使用 WSL2 的时候，编译无法通过，换成 VMware 才能通过。&lt;/p>
+&lt;h3 id="33-modern-c-mostly-safe-but-still-fast-and-low-level">3.3 Modern C++: mostly safe but still fast and low-level
+&lt;/h3>&lt;p>在本项目中，向我们规定了哪些语法应该使用，哪些不该使用。&lt;/p>
+&lt;p>运用了许多现代 C++的语法。&lt;/p>
+&lt;h3 id="34-reading-the-minnow-support-code">3.4 Reading the Minnow support code
+&lt;/h3>&lt;p>题目要求我们看一下一些提到的公共接口&lt;/p>
+&lt;p>&lt;code>socket.hh&lt;/code>&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>Socket&lt;/code> 继承于 &lt;code>FileDescriptor&lt;/code>
+&lt;ul>
+&lt;li>&lt;code>bind(address)&lt;/code> 将 Socket 绑定到指定的网络地址，常用于服务器监听&lt;/li>
+&lt;li>&lt;code>bind_to_device(device_name)&lt;/code> 将 Socket 绑定到指定网络接口设备&lt;/li>
+&lt;li>&lt;code>connect(address)&lt;/code> 建立指定对端地址的 TCP 连接&lt;/li>
+&lt;li>&lt;code>shutdown(how)&lt;/code> 关闭&lt;/li>
+&lt;li>&lt;code>local_address()&lt;/code> 获取 Socket 绑定的本地地址信息&lt;/li>
+&lt;li>&lt;code>peer_address()&lt;/code> 获取已连接 Socket 的对端地址信息&lt;/li>
+&lt;li>&lt;code>set_reuseaddr()&lt;/code> 允许地址重用&lt;/li>
+&lt;li>&lt;code>throw_if_error()&lt;/code> 检查 Socket 错误状态，用于非阻塞 Socket 的场景，发现错误时抛出异常&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;code>DatagramSocket&lt;/code> 继承于 &lt;code>Socket&lt;/code>
+&lt;ul>
+&lt;li>&lt;code>recv(source_address, payload)&lt;/code> 接受数据报&lt;/li>
+&lt;li>&lt;code>sendto(destination, payload)&lt;/code> 发送数据报到指定位置&lt;/li>
+&lt;li>&lt;code>send(payload)&lt;/code> 发送到已连接的地址，需要先 connect&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;code>UDPSocket&lt;/code> 继承于 &lt;code>DatagramSocket&lt;/code>
+&lt;ul>
+&lt;li>&lt;code>UDPSocket()&lt;/code> 默认构造函数&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;code>TCPSocket&lt;/code> 继承于 &lt;code>Socket&lt;/code>
+&lt;ul>
+&lt;li>&lt;code>TCPSocket()&lt;/code> 默认构造函数&lt;/li>
+&lt;li>&lt;code>listen(int backlog = 16)&lt;/code> 启动监听&lt;/li>
+&lt;li>&lt;code>accept()&lt;/code> 接受新连接并返回新 TCPSocket&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;code>PacketSocket&lt;/code> 继承于 &lt;code>DatagramSocket&lt;/code>
+&lt;ul>
+&lt;li>&lt;code>PacketSocket(int type, int protocol)&lt;/code> 默认构造函数&lt;/li>
+&lt;li>&lt;code>set_promiscuous()&lt;/code> 设置混杂模式&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;code>LocalStreamSocket&lt;/code> 继承于 &lt;code>Socket&lt;/code>
+&lt;ul>
+&lt;li>&lt;code>LocalStreamSocket(FileDescriptor&amp;amp;&amp;amp; fd)&lt;/code> 从 fd 构造函数&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;code>LocalDatagramSocket&lt;/code> 继承于 &lt;code>DatagramSocket&lt;/code>
+&lt;ul>
+&lt;li>&lt;code>LocalDatagramSocket()&lt;/code> 默认构造未绑定的构造函数&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;code>file_descriptor.hh&lt;/code>&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>FDWrapper()&lt;/code> 构造函数&lt;/li>
+&lt;li>&lt;code>~FDWrapper()&lt;/code> 析构函数&lt;/li>
+&lt;li>&lt;code>read()&lt;/code> 从文件描述读取数据到缓冲区（单缓冲区（字符串） 多缓冲区（数组））&lt;/li>
+&lt;li>&lt;code>write()&lt;/code> 尝试写入数据并返回写入的字节数（字符串视图或数组）&lt;/li>
+&lt;li>&lt;code>close()&lt;/code> 关闭底层文件描述符&lt;/li>
+&lt;li>&lt;code>duplicate()&lt;/code> 显式复制文件描述符，增加引用计数&lt;/li>
+&lt;li>&lt;code>set_blocking()&lt;/code> 设置文件描述为阻塞或非阻塞模式&lt;/li>
+&lt;li>&lt;code>size_t()&lt;/code> 返回文件大小&lt;/li>
+&lt;li>&lt;code>fd_num()&lt;/code> 获取底层文件描述符编号&lt;/li>
+&lt;li>&lt;code>eof()&lt;/code> 检查是否到达文件末尾&lt;/li>
+&lt;li>&lt;code>closed()&lt;/code> 检查描述符是否已关闭&lt;/li>
+&lt;li>&lt;code>read_count() / write_count()&lt;/code> 获取读写操作次数统计&lt;/li>
+&lt;/ul>
+&lt;h3 id="35-writing-webget">3.5 Writing webget
+&lt;/h3>&lt;p>本题要求我们完成一个类似于上文 2.1 节提起的&lt;strong>从互联网中获取网页&lt;/strong>的内容，我认为比较重要的点有以下几点&lt;/p>
+&lt;ol>
+&lt;li>这整个过程是一个&lt;strong>双向可靠&lt;/strong>的，也就是说我主机端向服务端发送了什么内容，那么服务端就会以相同的顺序获取这些内容。&lt;/li>
+&lt;li>题目告诉我们要使用之前 &lt;code>Http&lt;/code> 的格式，一定要看清楚哪里有空格，哪里没有空格
+明白这两点，那么大致就会有个思路，接下来就靠自己努力，&lt;/li>
+&lt;/ol>
+&lt;p>一些容易踩坑的点，题目中也给我们标明了，注意即可，&lt;/p>
+&lt;p>代码如下，&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="kt">void&lt;/span> &lt;span class="nf">get_URL&lt;/span>&lt;span class="p">(&lt;/span> &lt;span class="k">const&lt;/span> &lt;span class="n">string&lt;/span>&lt;span class="o">&amp;amp;&lt;/span> &lt;span class="n">host&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="k">const&lt;/span> &lt;span class="n">string&lt;/span>&lt;span class="o">&amp;amp;&lt;/span> &lt;span class="n">path&lt;/span> &lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Address&lt;/span> &lt;span class="n">address&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Address&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">host&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;http&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">TCPSocket&lt;/span> &lt;span class="n">socket&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">socket&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">connect&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">address&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">socket&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">write&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#34;GET &amp;#34;&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">path&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="s">&amp;#34; HTTP/1.1&lt;/span>&lt;span class="se">\r\n&lt;/span>&lt;span class="s">&amp;#34;&lt;/span> &lt;span class="o">+&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#34;Host: &amp;#34;&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">host&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="s">&amp;#34;&lt;/span>&lt;span class="se">\r\n&lt;/span>&lt;span class="s">&amp;#34;&lt;/span> &lt;span class="o">+&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#34;Connection: close&lt;/span>&lt;span class="se">\r\n\r\n&lt;/span>&lt;span class="s">&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">while&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">!&lt;/span>&lt;span class="n">socket&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">eof&lt;/span>&lt;span class="p">())&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">string&lt;/span> &lt;span class="n">output&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">socket&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">read&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">output&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">cout&lt;/span> &lt;span class="o">&amp;lt;&amp;lt;&lt;/span> &lt;span class="n">output&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="4-an-in-memory-reliable-byte-stream">4 An in-memory reliable byte stream
+&lt;/h2>&lt;p>&lt;strong>注：本流程已笔者做题时的正常思路为主，可能在后面会有其他补充，请看到最后~&lt;/strong>&lt;/p>
+&lt;p>本题需要完成一个&lt;strong>可靠的字节流&lt;/strong>，其中我认为比较重要的点有以下&lt;/p>
+&lt;ol>
+&lt;li>字节首先被写入输入端，以&lt;strong>相同顺序&lt;/strong>写出到输出端&lt;/li>
+&lt;li>字节流是有限的&lt;/li>
+&lt;/ol>
+&lt;h3 id="41--pushstring-data">4.1 &lt;code>push(string data)&lt;/code>
+&lt;/h3>&lt;p>将外部数据写入字节流的缓冲区，但不可以超过容量。&lt;/p>
+&lt;p>首先来看看&lt;strong>容量&lt;/strong>是什么，在 &lt;code>ByteStream&lt;/code> 初始化时，会给定一个 &lt;code>capacity&lt;/code>，这是这个字节流的容量，但容量只由这一个来决定吗？不是，我们推送数据的时候，会创建一个适当的数据结构来表示缓冲区，在最开始，什么都没有，缓冲区内什么也没有，当然可以以总容量的大小来推送，但下一次就不一定了，若当前缓冲区存在一些字节，那我们此时的容量就会变成 &lt;code>总容量-缓冲区大小&lt;/code>。&lt;/p>
+&lt;p>其次，用户在传递数据的时候，如果比一开始设置的容量就要大、亦或者是比我们 &lt;code>总容量-缓冲区大小&lt;/code> 的容量还要大，应该怎么办？此时应该选择这两者之间最小的一个，也就是 &lt;code>min(数据大小,此时容量大小)&lt;/code>。&lt;/p>
+&lt;p>想到这，就会有一个大概的思路，首先要选择一个合适的数据结构，因为传递的是 &lt;code>string&lt;/code>，我在这里也选择 &lt;code>string&lt;/code> 作为缓冲区的数据结构。&lt;/p>
+&lt;ol>
+&lt;li>判断当前可以使用的容量&lt;/li>
+&lt;li>判断数据大小和容量哪个更小&lt;/li>
+&lt;li>添加到缓冲区
+因此，我们可以写出代码&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">//byte_stream.hh
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="k">protected&lt;/span>&lt;span class="o">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">string&lt;/span> &lt;span class="n">buffer_&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// byte_stream.cc
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kt">void&lt;/span> &lt;span class="n">Writer&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">push&lt;/span>&lt;span class="p">(&lt;/span> &lt;span class="n">string&lt;/span> &lt;span class="n">data&lt;/span> &lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">uint64_t&lt;/span> &lt;span class="n">available_bytes&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">capacity_&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">buffer_&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">size&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">uint64_t&lt;/span> &lt;span class="n">write_len&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">min&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">available_bytes&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">data&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">size&lt;/span>&lt;span class="p">());&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">buffer_&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">substr&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">write_len&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="42-close--is_closed">4.2 &lt;code>close()&lt;/code> &amp;amp; &lt;code>is_closed()&lt;/code>
+&lt;/h3>&lt;p>标记流已经结束，不再写入。&lt;/p>
+&lt;p>要完成此函数，可以添加一个布尔标记，判断此时是否已经结束&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// byte_stream.hh
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="k">protected&lt;/span>&lt;span class="o">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">bool&lt;/span> &lt;span class="n">is_closed_&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// byte_stream.cc
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kt">void&lt;/span> &lt;span class="n">Writer&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">close&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">is_closed_&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">true&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kt">bool&lt;/span> &lt;span class="n">Writer&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">is_closed&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="k">const&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">is_closed_&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="43-available_capacity-">4.3 &lt;code>available_capacity () &lt;/code>
+&lt;/h3>&lt;p>当前可推送的字节数&lt;/p>
+&lt;p>很明显，这就是我们在 4.1 节中想过的当前可以使用的容量大小，&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="kt">uint64_t&lt;/span> &lt;span class="n">Writer&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">available_capacity&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="k">const&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">capacity_&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">buffer_&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">size&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="44-bytes_pushed-">4.4 &lt;code>bytes_pushed () &lt;/code>
+&lt;/h3>&lt;p>返回目前累计推送到字节流的总字节数&lt;/p>
+&lt;p>我们可以维护一个字节数的变量，每推送了一定值的字节后，就往这个变量上加一定值。所以，我们需要在上文 4.1 节中的 &lt;code>push&lt;/code> 函数加上一行，来表示我们已推送的总字节数。并且，还可以将 4.3 节抽象到此处。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// byte_stream.hh
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="k">protected&lt;/span>&lt;span class="o">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">uint64_t&lt;/span> &lt;span class="n">bytes_pushed_&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// byte_stream.cc
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kt">void&lt;/span> &lt;span class="n">Writer&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">push&lt;/span>&lt;span class="p">(&lt;/span> &lt;span class="n">string&lt;/span> &lt;span class="n">data&lt;/span> &lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">uint64_t&lt;/span> &lt;span class="n">available_bytes&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">available_capacity&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">uint64_t&lt;/span> &lt;span class="n">write_len&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">min&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">available_bytes&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">data&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">size&lt;/span>&lt;span class="p">());&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">buffer_&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">substr&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">write_len&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">bytes_pushed_&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="n">write_len&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kt">uint64_t&lt;/span> &lt;span class="n">Writer&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">bytes_pushed&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="k">const&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">bytes_pushed_&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="45-peek">4.5 &lt;code>peek()&lt;/code>
+&lt;/h3>&lt;p>本题需要查看缓冲区的可读取的数据，但不移除任何数据。&lt;/p>
+&lt;p>可读取的数据就是还在缓冲区内存放的数据，也就是 &lt;code>size&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="n">string_view&lt;/span> &lt;span class="n">Reader&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">peek&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="k">const&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="n">buffer_&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">(),&lt;/span> &lt;span class="n">buffer_&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">size&lt;/span>&lt;span class="p">()};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="46-popuint64_t-len">4.6 &lt;code>pop(uint64_t len)&lt;/code>
+&lt;/h3>&lt;p>本题需要从缓冲区中移除指定长度的数据，这些数据表示为已经被读取过的。&lt;/p>
+&lt;p>我们要先判断一下要移除的这些数据，与我当前缓冲区内的数据大小哪个大，如果移除的数据比我本身的都大，那就有错误了。其次，我们要移除的是已经被读取过的，所以最开始的一定是在第一位，因为先读取的会一步步排到最前面。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="kt">void&lt;/span> &lt;span class="n">Reader&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">pop&lt;/span>&lt;span class="p">(&lt;/span> &lt;span class="kt">uint64_t&lt;/span> &lt;span class="n">len&lt;/span> &lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">len&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">min&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">len&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">buffer_&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">size&lt;/span>&lt;span class="p">());&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">buffer_&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">erase&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">len&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="47-is_finished">4.7 &lt;code>is_finished()&lt;/code>
+&lt;/h3>&lt;p>判断此时数据流是否已经结束，结束的标志有&lt;/p>
+&lt;ol>
+&lt;li>已经关闭&lt;/li>
+&lt;li>缓冲区内已无任何数据&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="kt">bool&lt;/span> &lt;span class="n">Reader&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">is_finished&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="k">const&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">is_closed_&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="n">buffer_&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">empty&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="48-bytes_buffered">4.8 &lt;code>bytes_buffered()&lt;/code>
+&lt;/h3>&lt;p>给出当前缓冲区内的数据大小&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="kt">uint64_t&lt;/span> &lt;span class="n">Reader&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">bytes_buffered&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="k">const&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">buffer_&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">size&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="49-bytes_popped">4.9 &lt;code>bytes_popped()&lt;/code>
+&lt;/h3>&lt;p>给出截至目前为止有多少数据被移除了。&lt;/p>
+&lt;p>我们依然可以维护一个变量，每移除一定量的数据后就往这个变量上添加。所以，要在上文 &lt;code>pop()&lt;/code> 函数再添加一些内容。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="k">protected&lt;/span>&lt;span class="o">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">uint64_t&lt;/span> &lt;span class="n">bytes_popped_&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// byte_stream.cc
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kt">void&lt;/span> &lt;span class="n">Reader&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">pop&lt;/span>&lt;span class="p">(&lt;/span> &lt;span class="kt">uint64_t&lt;/span> &lt;span class="n">len&lt;/span> &lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">len&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">min&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">len&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">buffer_&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">size&lt;/span>&lt;span class="p">());&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">buffer_&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">erase&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">len&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">bytes_popped_&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="n">len&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kt">uint64_t&lt;/span> &lt;span class="n">Reader&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">bytes_popped&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="k">const&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">bytes_popped_&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="410-构造函数">4.10 构造函数
+&lt;/h3>&lt;p>我们已经维护了如此多的变量，对于 C++来说，初始化一个对象也有很多讲究，我们在 &lt;code>protected&lt;/code> 处给出的变量，因此回到最开始的内容，在构造函数时要&lt;strong>按顺序&lt;/strong>来给出，否则会报错。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="k">protected&lt;/span>&lt;span class="o">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">uint64_t&lt;/span> &lt;span class="n">capacity_&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">bool&lt;/span> &lt;span class="n">error_&lt;/span> &lt;span class="p">{};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">string&lt;/span> &lt;span class="n">buffer_&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">bool&lt;/span> &lt;span class="n">is_closed_&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">uint64_t&lt;/span> &lt;span class="n">bytes_pushed_&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">uint64_t&lt;/span> &lt;span class="n">bytes_popped_&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="n">ByteStream&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">ByteStream&lt;/span>&lt;span class="p">(&lt;/span> &lt;span class="kt">uint64_t&lt;/span> &lt;span class="n">capacity&lt;/span> &lt;span class="p">)&lt;/span> &lt;span class="o">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">capacity_&lt;/span>&lt;span class="p">(&lt;/span> &lt;span class="n">capacity&lt;/span> &lt;span class="p">),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">buffer_&lt;/span>&lt;span class="p">(),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">is_closed_&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">false&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">bytes_pushed_&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">bytes_popped_&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="写在后面">写在后面
+&lt;/h2>&lt;p>不愧是著名的 CS144，光是第一个 check 就让我如此难受，总耗费时长大概在 12 小时左右，对于网络编程的不了解吃了很大亏。&lt;/p></description></item></channel></rss>

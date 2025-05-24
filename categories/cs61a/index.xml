@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>CS61A on YuTaki's Ideas</title><link>https://YuTaki23.github.io/categories/cs61a/</link><description>Recent content in CS61A on YuTaki's Ideas</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>YuTaki. All rights reserved.</copyright><lastBuildDate>Fri, 07 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://YuTaki23.github.io/categories/cs61a/index.xml" rel="self" type="application/rss+xml"/><item><title>CS61A SP24 Scheme</title><link>https://YuTaki23.github.io/p/cs61a-sp24-scheme/</link><pubDate>Fri, 07 Mar 2025 00:00:00 +0000</pubDate><guid>https://YuTaki23.github.io/p/cs61a-sp24-scheme/</guid><description>&lt;img src="https://YuTaki23.github.io/p/cs61a-sp24-scheme/image1.png" alt="Featured image of post CS61A SP24 Scheme" />&lt;h2 id="写在前面">写在前面
+&lt;/h2>&lt;p>本项目为UC Berekly CS61A SP24的 Project4: Scheme。以下为个人对此项目的见解，如有错误或更好的解决方案，欢迎与我联系。&lt;/p>
+&lt;p>&lt;a class="link" href="mailto:yutaki23@163.com" >点这里向我发邮件~&lt;/a>&lt;/p>
+&lt;h2 id="具体思路">具体思路
+&lt;/h2>&lt;h3 id="problem-1">Problem 1
+&lt;/h3>&lt;p>首先通读一下题目，此题需要我们完成两个函数&lt;code>define&lt;/code>和&lt;code>lookup&lt;/code>，同时给了我们关于&lt;code>Frame&lt;/code>的一些信息，&lt;code>Frame&lt;/code>有两个instance attribute。&lt;/p>
+&lt;ol>
+&lt;li>&lt;code>bindings&lt;/code> 这是一个字典，回顾一下字典的相关内容，字典，相当于其他语言的map，存在一个key和一个value，每个字典当中只能有一个唯一的key，但key中存放的数据可以是相同的。此题中，key就代表的是symbol，而value代表的就是其本意，相当于我们在python当中的等号赋值用法，例如，&lt;code>x = 3&lt;/code>在这里key就是x，value就是3。&lt;/li>
+&lt;li>&lt;code>parent&lt;/code> 每个frame都可以被嵌套在另一个frame里面，而他们最终的frame都是None。&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>&lt;code>define&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>非常显而易见了，上文中也提到过，在此不再赘述。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">define&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">symbol&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">value&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;&amp;#34;&amp;#34;Define Scheme SYMBOL to have VALUE.&amp;#34;&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">bindings&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">symbol&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">value&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>&lt;code>lookup&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>此函数可以想成三个case，题目当中也给了我们很详细的描述。&lt;/p>
+&lt;ol>
+&lt;li>若symbol在当前frame里，直接返回value。&lt;/li>
+&lt;li>若symbol不在当前frame里，且其含有父frame，且父frame里含有此symbol，返回value。关于这个case，有几点需要说明
+&lt;ul>
+&lt;li>其含有父frame。问：如何界定此frame是否合法？答：只要不为None，都是合法的。&lt;/li>
+&lt;li>父frame里含有symbol。问：如何访问父frame？答：用点表达式访问parent即可。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>若均不满足以上情况，即symbol不在当前frame里，且没有父frame，arise error。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">lookup&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">symbol&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;&amp;#34;&amp;#34;Return the value bound to SYMBOL. Errors if SYMBOL is not found.&amp;#34;&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">current_frame&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="bp">self&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># case1 若symbol在当前frame&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">symbol&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">current_frame&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">bindings&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">current_frame&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">bindings&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">symbol&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># case2 symbol不在当前frame 但在parent frame&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">current_frame&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">current_frame&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">parent&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">while&lt;/span> &lt;span class="n">current_frame&lt;/span> &lt;span class="ow">is&lt;/span> &lt;span class="ow">not&lt;/span> &lt;span class="kc">None&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">symbol&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">current_frame&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">bindings&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">current_frame&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">bindings&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">symbol&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">current_frame&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">current_frame&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">parent&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># case3 都不存在 引发error&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">raise&lt;/span> &lt;span class="n">SchemeError&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;unknown identifier: &lt;/span>&lt;span class="si">{0}&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">format&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">symbol&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="problem-2">Problem 2
+&lt;/h3>&lt;p>首先通读一下题目，此题要求我们实现一个&lt;code>scheme_apply&lt;/code>函数中的一个case，即&lt;code>BuiltinProcedure&lt;/code>。在完成一个表达式时，存在内置的一些操作如 &lt;code>+ - * /&lt;/code>等，在此，就需要我们实现这些操作。&lt;/p>
+&lt;p>&lt;code>BuiltinProcedure&lt;/code>含有两个instance attribute。&lt;/p>
+&lt;ol>
+&lt;li>&lt;code>py_func&lt;/code> 找到对应的操作符号，用python的内置函数来实现表达式，不用我们自己实现（自己似乎也实现不了，有点不切实际）。&lt;/li>
+&lt;li>&lt;code>need_env&lt;/code> 有些内置函数需要特定的环境。&lt;/li>
+&lt;/ol>
+&lt;p>此题可分为三个步骤来写，题目中也给的很清楚。&lt;/p>
+&lt;ol>
+&lt;li>将&lt;code>scheme list&lt;/code> 转变为&lt;code>python list&lt;/code>，与上题很类似。&lt;/li>
+&lt;li>判断&lt;code>need_env&lt;/code>的是否，很简单。&lt;/li>
+&lt;li>使用*&lt;strong>args表示法&lt;/strong>来调用&lt;code>py_func&lt;/code>这里可能需要了解一下什么是 *args表示法。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl"> &lt;span class="k">try&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 将scheme list转变为 python list&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">lst&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">while&lt;/span> &lt;span class="n">args&lt;/span> &lt;span class="ow">is&lt;/span> &lt;span class="ow">not&lt;/span> &lt;span class="n">nil&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">lst&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">args&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">first&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">args&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">args&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">rest&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 判断 need_env&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">procedure&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">need_env&lt;/span> &lt;span class="ow">is&lt;/span> &lt;span class="kc">True&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">lst&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">env&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 调用 py_func&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">procedure&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">py_func&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="n">lst&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">except&lt;/span> &lt;span class="ne">TypeError&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">err&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">raise&lt;/span> &lt;span class="n">SchemeError&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;incorrect number of arguments: &lt;/span>&lt;span class="si">{0}&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">format&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">procedure&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="problem-3">Problem 3
+&lt;/h3>&lt;p>此题需要让我们将&lt;code>scheme_eval&lt;/code>补充完整，大致题目已给出，我们需要完成的是判断此表达式，并通过上文完成的&lt;code>scheme_apply&lt;/code>函数来计算结果。题目还是给了我们大致思路。&lt;/p>
+&lt;ol>
+&lt;li>判断&lt;strong>operator&lt;/strong>，使用递归。&lt;em>Recrusion&lt;/em>，即自身调用自身，那一定是在&lt;code>scheme_eval&lt;/code>函数里调用&lt;code>scheme_eval&lt;/code>。对于此函数，我们需要三个参数，&lt;code>expresson&lt;/code> &lt;code>environment&lt;/code>以及一个默认参数，文中给了我们代码提示&lt;code>first = expr.first&lt;/code>，由此即可以判断此处的&lt;code>expression = first&lt;/code>，同时还要求我们&lt;strong>evaluate to a procedure instance&lt;/strong>。&lt;code>scheme_apply&lt;/code>的开头就给了我们提示&lt;/li>
+&lt;li>判断&lt;strong>operands&lt;/strong>，依旧使用递归。与上文类似，题目已经给了我们&lt;code>rest = expr.next&lt;/code>，同时题目要求我们收集到scheme列表里，下文有提示，使用&lt;code>Pair&lt;/code>的&lt;code>map&lt;/code>方法，观察&lt;code>map&lt;/code>方法，这提供了一个形参&lt;code>fn&lt;/code>，显然此处的&lt;code>fn&lt;/code>就是&lt;code>scheme_eval&lt;/code>，但&lt;code>scheme_eval&lt;/code>存在两个形参，这就需要我们进行转换，使用&lt;strong>lambda函数&lt;/strong>。&lt;/li>
+&lt;li>之后就是调用&lt;code>scheme_apply&lt;/code>，很显然，在此不做过多赘述。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># evaluate operator&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">procedure&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">scheme_eval&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">first&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">env&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">validate_procedure&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">procedure&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># evaluate operand&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">operands&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">rest&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">map&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">lambda&lt;/span> &lt;span class="n">x&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">scheme_eval&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">env&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">scheme_apply&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">procedure&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">operands&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">env&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="problem-4">Problem 4
+&lt;/h3>&lt;p>此题要求我们实现&lt;code>define&lt;/code>，简单来说，就是将一个&lt;strong>expressions&lt;/strong>赋值给一个&lt;strong>symbol&lt;/strong>。我们在这里只需要实现第一个部分，即计算一个表达式作为&lt;strong>expressions&lt;/strong>并复制给一个提供给我们的&lt;strong>symbol&lt;/strong>，下方还有提示，需要我们用到&lt;code>Frame&lt;/code>里的&lt;code>define&lt;/code>。那我们想一想&lt;code>define&lt;/code>函数需要我们提供什么参数呢？&lt;/p>
+&lt;ol>
+&lt;li>&lt;code>symbol&lt;/code> symbol总是存在于一个表达式的第一位，函数也给了我们一个提示，即&lt;code>signature = expressions.first&lt;/code>，由此我们就可以看出我们的symbol就是这个。&lt;/li>
+&lt;li>&lt;code>expressions&lt;/code> 对于一个表达式来说，我们需要赋值的不仅仅是表达式本身，还是它计算后的数值是什么，所以在这里我们还需要用到上文完成的&lt;code>scheme_eval&lt;/code>函数。&lt;/li>
+&lt;li>最后，需要我们返回已绑定的&lt;code>symbol&lt;/code>。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">signature&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">expressions&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">first&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="n">scheme_symbolp&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">signature&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># assigning a name to a value e.g. (define x (+ 1 2))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">validate_form&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">expressions&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># Checks that expressions is a list of length exactly 2&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">env&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">define&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">signature&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">scheme_eval&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">expressions&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">rest&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">first&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">env&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">signature&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="problem-5">Problem 5
+&lt;/h3>&lt;p>此题向我们描述了&lt;code>quote&lt;/code>的用法，在此不做过多赘述，详情可看题目要求。在此仅讲讲需要实现的功能。&lt;/p>
+&lt;p>给出一段&lt;code>expressions&lt;/code>，需要我们原封不动的返回，但对于&lt;code>Pair&lt;/code>来说，不返回&lt;strong>nil&lt;/strong>，由此可见，需要返回的是&lt;code>expressions.first&lt;/code>。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">validate_form&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">expressions&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">return&lt;/span> &lt;span class="n">expressions&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">first&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>Congratulation! 第一部分已完成&lt;/strong>&lt;/p>
+&lt;h3 id="problem-6">Problem 6
+&lt;/h3>&lt;p>此题我们需要完成Scheme中的一个特殊形式&lt;code>begin&lt;/code>。&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;code>begin&lt;/code> 用于按顺序组合多个表达式，并返回最后一个表达式的值。例如，&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-scheme" data-lang="scheme">&lt;span class="line">&lt;span class="cl">&lt;span class="p">(&lt;/span>&lt;span class="nf">begin&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">(&lt;/span>&lt;span class="nb">display &lt;/span>&lt;span class="s">&amp;#34;Hello&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">; 执行第一个表达式（输出 &amp;#34;Hello&amp;#34;）&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">(&lt;/span>&lt;span class="nb">display &lt;/span>&lt;span class="s">&amp;#34;World&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">; 执行第二个表达式（输出 &amp;#34;World&amp;#34;）&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">(&lt;/span>&lt;span class="nb">+ &lt;/span>&lt;span class="mi">1&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="c1">; 返回最后一个表达式的值 3&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/blockquote>
+&lt;p>那由此我们可以观察到，它会将所有表达式都执行一遍，但只返回最后一个表达式的值，是不是有点像我们说的递归的概念，不断的完成一个动作，直到最后一个动作再返回。由此我们就可以写出代码。&lt;/p>
+&lt;ol>
+&lt;li>首先有一个 &lt;code>base case&lt;/code> 若此表达式为空，返回&lt;code>None&lt;/code>。&lt;/li>
+&lt;li>开始递归。首先我们想一想，想要evaluate一个表达式，应该怎么做？答：用上文完成的&lt;code>scheme_eval&lt;/code>函数。&lt;/li>
+&lt;li>如何判断是否到达了递归终点？对于一个&lt;code>expressions&lt;/code>来说，它就像一个链表，最后一项的&lt;code>rest&lt;/code>总是&lt;code>nil&lt;/code>，这就到达了递归终点，也就是我们说的&lt;code>base case&lt;/code>。&lt;/li>
+&lt;li>对于&lt;code>recrusion case&lt;/code> 来说，我们要不断的调用自身，直到到达&lt;code>base case&lt;/code>。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="n">expressions&lt;/span> &lt;span class="ow">is&lt;/span> &lt;span class="n">nil&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kc">None&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">exp&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">scheme_eval&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">expressions&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">first&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">env&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="n">expressions&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">rest&lt;/span> &lt;span class="ow">is&lt;/span> &lt;span class="n">nil&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">exp&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">eval_all&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">expressions&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">rest&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">env&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="problem-7">Problem 7
+&lt;/h3>&lt;p>此题依旧需要我们完成Scheme中的一个特殊形式&lt;code>lambda&lt;/code>。&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;code>lambda&lt;/code> 用于定义匿名函数，此题要求我们逐步计算表达式，并返回最后一个表达式的值。&lt;/p>&lt;/blockquote>
+&lt;p>其中，&lt;code>LambdaProcedure&lt;/code>这个类存在一个实例&lt;code>body&lt;/code>，存放的是scheme list，而实例&lt;code>formals&lt;/code>存放的是正确的Pair嵌套表达式。&lt;/p>
+&lt;p>我们需要做的是创建并返回一个&lt;code>LambdaProcedure&lt;/code>实例，那整体思路就很明朗的，再加上此函数还有给我们的提示，使用特定的语法知识，易得。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl"> &lt;span class="n">body&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">expressions&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">rest&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">LambdaProcedure&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">formals&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">body&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">env&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="problem-8">Problem 8
+&lt;/h3>&lt;p>此题需要我们创建一个新的&lt;code>Frame&lt;/code>，其中含有两个参数，&lt;code>formals&lt;/code> &lt;code>vals&lt;/code>，均为scheme list，需要我们将每一个formal对应到val，且formals于vals的数量都是相等的，一一对应，直到达到scheme list的终点即可。值得注意的是，不是简单的复制父Frame里的内容，笔者在这里第一次就想错了，总的来说，题目已经告诉我们具体做法，在此不做过多赘述。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl"> &lt;span class="n">child_frame&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Frame&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">while&lt;/span> &lt;span class="n">formals&lt;/span> &lt;span class="ow">is&lt;/span> &lt;span class="ow">not&lt;/span> &lt;span class="n">nil&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">child_frame&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">define&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">formals&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">first&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">vals&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">first&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">formals&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">formals&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">rest&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">vals&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">vals&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">rest&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">child_frame&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="problem-9">Problem 9
+&lt;/h3>&lt;p>此题需要我们完成&lt;code>scheme_apply&lt;/code>里的一个&lt;code>LambdaProcedure case&lt;/code>，题目已经给出提示，即&lt;/p>
+&lt;ol>
+&lt;li>创建一个新Frame，注意到，要想创建一个新的Frame，就应该想到用谁来创建，不能是Procedure本身，因为&lt;code>make_child_frame&lt;/code>是在Frame类中实现的，所以应该找到一个Frame，即&lt;code>Procedrure.env&lt;/code>&lt;/li>
+&lt;li>将形参绑定到参数值，想一想，对于一个&lt;code>Procedure&lt;/code>来说，存在两个实例，即&lt;code>formals&lt;/code>和&lt;code>body&lt;/code>，而&lt;code>formals&lt;/code>对应的就是&lt;code>make_child_frame&lt;/code>中的&lt;code>formals&lt;/code>，而&lt;code>body&lt;/code>对应的就是&lt;code>eval_all&lt;/code>中的&lt;code>expressions&lt;/code>。&lt;/li>
+&lt;li>在当前Frame进行计算，也就是说此时的&lt;code>env&lt;/code>应该变成我们创建的新Frame&lt;/li>
+&lt;/ol>
+&lt;p>综上易得，&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl"> &lt;span class="n">child_frame&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">procedure&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">env&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">make_child_frame&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">procedure&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">formals&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">args&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">eval_all&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">procedure&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">body&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">child_frame&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="problem-10">Problem 10
+&lt;/h3>&lt;p>此题需要我们完成&lt;code>define&lt;/code>的一种新类型，题目已经给了详尽的步骤，在这里讲几个笔者踩到的坑。&lt;/p>
+&lt;ol>
+&lt;li>想清楚&lt;code>symbol&lt;/code> &lt;code>formals&lt;/code> &lt;code>body&lt;/code>分别代表什么，首先想明白，signature与expression之间的关系，signature代表的是expression的第一个内容，也就是函数名，而其中&lt;code>symbol&lt;/code>也叫函数，也就是&lt;code>signature.first&lt;/code>，之后再想想&lt;code>formals&lt;/code>，就是除了define和函数名剩下的内容，而&lt;code>body&lt;/code>则代表的是除了define之外的所有内容，想清楚这五个之间的关系，对于这道题十分关键。&lt;/li>
+&lt;li>题目告诉我们可以使用&lt;code>do_lambda_form&lt;/code>，但笔者试了很多次也没有找到方法，若有人有更好的意见欢迎与我联系。&lt;/li>
+&lt;li>在找到正确的&lt;code>formals&lt;/code>后还需要使用&lt;code>validate_formals()&lt;/code>函数来判断其正确性。&lt;/li>
+&lt;/ol>
+&lt;p>综上可知，&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl"> &lt;span class="n">symbol&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">signature&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">first&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">formals&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">signature&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">rest&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">validate_formals&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">formals&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">body&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">expressions&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">rest&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">env&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">define&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">symbol&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">LambdaProcedure&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">formals&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">body&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">env&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">symbol&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="problem-11">Problem 11
+&lt;/h3>&lt;p>这道题看着题目很长很难，但其实是纸老虎，根据它的题意来即可。&lt;/p>
+&lt;ol>
+&lt;li>看看&lt;code>MuProcedure&lt;/code>可以发现需要两个参数，&lt;code>formals&lt;/code>和&lt;code>body&lt;/code>，&lt;code>formals&lt;/code>题目已经给出，指的是expressions的第一个内容，而&lt;code>body&lt;/code>就是除了第一个内容的其他内容。&lt;/li>
+&lt;li>完成&lt;code>scheme_apply&lt;/code>的&lt;code>mu case&lt;/code>，这个内容跟上文的&lt;code>lambda case&lt;/code>如出一辙，有区别的是，Frame的区别，因为&lt;code>mu&lt;/code>是动态的，所以它的Frame一直在变，就不需要再用Procedure的Frame了。&lt;/li>
+&lt;/ol>
+&lt;p>综上可知，&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="k">return&lt;/span> &lt;span class="n">MuProcedure&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">formals&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">expressions&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">rest&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl"> &lt;span class="n">child_frame&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">env&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">make_child_frame&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">procedure&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">formals&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">args&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">eval_all&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">procedure&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">body&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">child_frame&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>Part 2 已完成！&lt;/strong>&lt;/p>
+&lt;h3 id="problem-12">Problem 12
+&lt;/h3>&lt;p>这道题需要我们完成两个函数&lt;code>do_and_form&lt;/code>和&lt;code>do_or_form&lt;/code>，这两个函数从形式上来说都很相似，所以放在一起做，读题目可知，expressions会给出不定量个内容，我们需要判断每个内容的正确性来判断应返回什么，值得注意的是，对于&lt;code>and&lt;/code>和&lt;code>or&lt;/code>来说，存在一个关键的地方&lt;strong>短路&lt;/strong>，每当遇到一个合适的内容时，就会舍弃后面的所有内容，仅返回当前内容。&lt;/p>
+&lt;p>因此，对于此题来说，递归是个很好的办法，具体步骤如下。&lt;/p>
+&lt;ol>
+&lt;li>&lt;code>base case 1&lt;/code> 若expression为空，则返回特定值。&lt;/li>
+&lt;li>&lt;code>base case 2&lt;/code> 每当我们判断出来的当前内容的正确性，则直接返回。&lt;/li>
+&lt;li>&lt;code>base case 3&lt;/code> 当所有内容都判断完毕后还没有找到正确性，则返回最后一个内容。&lt;/li>
+&lt;li>&lt;code>recrusion case&lt;/code> 不断对下一个内容执行当前函数。&lt;/li>
+&lt;/ol>
+&lt;p>代码如下，&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">do_and_form&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">expressions&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">env&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">expressions&lt;/span> &lt;span class="ow">is&lt;/span> &lt;span class="n">nil&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kc">True&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">currency&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">scheme_eval&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">expressions&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">first&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">env&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">is_scheme_true&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">currency&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">expressions&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">rest&lt;/span> &lt;span class="ow">is&lt;/span> &lt;span class="n">nil&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">currency&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">do_and_form&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">expressions&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">rest&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">env&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">currency&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">do_or_form&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">expressions&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">env&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">expressions&lt;/span> &lt;span class="ow">is&lt;/span> &lt;span class="n">nil&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kc">False&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">currency&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">scheme_eval&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">expressions&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">first&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">env&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">is_scheme_false&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">currency&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">expressions&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">rest&lt;/span> &lt;span class="ow">is&lt;/span> &lt;span class="n">nil&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">currency&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">do_or_form&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">expressions&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">rest&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">env&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">currency&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="problem-13">Problem 13
+&lt;/h3>&lt;p>此题需要我们完成&lt;code>cond&lt;/code>，题目也给了我们描述。返回第一个表达式为&lt;code>true&lt;/code>的值，若都不是正确的，那么就返回&lt;code>else&lt;/code>表达式也就是最后一个表达式的值，这也是一个递归步骤，因此可知步骤为，&lt;/p>
+&lt;ol>
+&lt;li>&lt;code>base case&lt;/code> 判断到最后一个表达式，若还没有判断出来，则返回此表达式的值。&lt;/li>
+&lt;li>&lt;code>recrusion case&lt;/code> 从第一个表达式开始逐步判断。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">clause&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">rest&lt;/span> &lt;span class="ow">is&lt;/span> &lt;span class="n">nil&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">test&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">eval_all&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">clause&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">rest&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">env&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="problem-14">Problem 14
+&lt;/h3>&lt;p>&lt;strong>这道题确实没看懂什么意思，在此也不误人子弟了。&lt;/strong>&lt;/p>
+&lt;p>&lt;a class="link" href="https://github.com/YuTaki23/CS61A-SP24" target="_blank" rel="noopener"
+>点这里看总的代码实现&lt;/a>&lt;/p>
+&lt;h2 id="写在后面">写在后面
+&lt;/h2>&lt;p>后续的题目就不再做了，是关于Scheme的。&lt;/p>
+&lt;p>作为UCB的CS61系列的第一门课，在当时还是初学者的我留下了很深的心理阴影，Scheme这个项目也一直停着没有做，这次重新捡回来，也算是给自己的一个交代。&lt;/p>
+&lt;p>至此，CS61A结束。&lt;/p>
+&lt;p align = "right">YuTaki&lt;/p>
+&lt;p align = "right">2025年3月7日写于博学楼&lt;/p></description></item></channel></rss>
